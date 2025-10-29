@@ -2,16 +2,24 @@ import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router'
 import './App.css'
 import HomePage from './components/HomePage/HomePage'
+import Login from './components/Auth/Login';
+import SignUp from './components/Auth/Signup';
+import NavBar from './components/NavBar/NavBar';
+import { getUserFromToken } from './lib/auth'
+
 
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [user, setUser] = useState(getUserFromToken());
+
 
   return (
 <Router>
       {/* Nav bar takes the user and the set user to show either login or logout buttons */}
-      {/* <NavBar user={user} setUser={setUser}/> */}
+      <NavBar user={user} setUser={setUser}/>
       <Routes>
+        <Route path='/login' element={<Login setUser={setUser}/>}/>
+        <Route path='/signup' element={<SignUp />}/>
         <Route path='/home' element={<HomePage />}/>
       </Routes>
     </Router>
