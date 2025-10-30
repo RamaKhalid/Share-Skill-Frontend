@@ -8,6 +8,7 @@ import NavBar from './components/NavBar/NavBar';
 import { getUserFromToken } from './lib/auth'
 import Profile from './components/Profile/Profile';
 import Certificates from './components/Certificates/Certificates';
+import ExperiencesList from './components/Experiences/ExperiencesList';
 
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route path='/home' element={<HomePage />}/>
         <Route path='/profile' element={<Profile user={user} />}/>
         <Route path='/certificates' element={<Certificates user={user} />}/>
+        <Route path='/experiences' element={<ExperiencesList user={user} />}/>
       </Routes>
     </Router>
   )
