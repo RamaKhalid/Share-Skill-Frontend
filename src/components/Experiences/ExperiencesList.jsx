@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import FormExperiences from './FormExperiences'
+import DeleteExperiences from './DeleteExperiences'
 
 function ExperiencesList({user}) {
   const [experiencesList, setExperiencesList]= useState([])
@@ -45,7 +46,7 @@ function ExperiencesList({user}) {
                 experiencesList.map(certificate=>{
                     return(
                         <li key={certificate.id}>
-                            {/* {showDelete && < DeleteCertificates user={user} experience={oneExperiences} setShowForm={setShowDelete} onClose= {()=>setShowDelete(false)} />} */}
+                            {showDelete && < DeleteExperiences user={user} experience={oneExperiences} setShowForm={setShowDelete} onClose= {()=>setShowDelete(false)} />}
                             {showForm && < FormExperiences user={user} experience={oneExperiences} setShowForm={setShowForm} onClose= {()=>setShowForm(false)}  />}
                             <a href="" className="card">
                                 <img src="https://i.imgur.com/oYiTqum.jpg" className="card__image" alt="" />
