@@ -9,11 +9,7 @@ import './homeStyle.scss';
 function HomePage() {
     const [users, setUSers] = useState([])
     const [profileList, setProfileList] = useState([])
-    const LevelNames = {
-        B: 'Beginner',
-        I: 'Intermediate',
-        E: 'Expert'
-    }
+
 
      async function getAllUSer() {
         const response = await axios.get('http://127.0.0.1:8000/ss/home/')
@@ -28,7 +24,7 @@ function HomePage() {
     function getSkills(userID){
        const userProfile = profileList.find(profile=> profile.user === userID)
         if (userProfile)
-        return LevelNames[userProfile.level]
+        return userProfile.level
     }
 
   return (
