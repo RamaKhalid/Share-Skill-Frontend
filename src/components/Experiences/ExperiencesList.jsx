@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import FormExperiences from './FormExperiences'
 
 function ExperiencesList({user}) {
   const [experiencesList, setExperiencesList]= useState([])
@@ -22,6 +23,8 @@ function ExperiencesList({user}) {
 
     function handleClick(e) {
         e.preventDefault()
+        console.log(e.target);
+        
         const experience = experiencesList.filter((experience)=> experience.id == e.target.value)
         setOneExperiences(experience)
         if (e.target.name === 'edit' || e.target.name === 'addNew' ){
@@ -42,8 +45,8 @@ function ExperiencesList({user}) {
                 experiencesList.map(certificate=>{
                     return(
                         <li key={certificate.id}>
-                            {showDelete && < DeleteCertificates user={user} certificate={oneExperiences} setShowForm={setShowDelete} onClose= {()=>setShowDelete(false)} />}
-                            {showForm && < FormCertificate user={user} certificate={oneExperiences} setShowForm={setShowForm} onClose= {()=>setShowForm(false)}  />}
+                            {/* {showDelete && < DeleteCertificates user={user} experience={oneExperiences} setShowForm={setShowDelete} onClose= {()=>setShowDelete(false)} />} */}
+                            {showForm && < FormExperiences user={user} experience={oneExperiences} setShowForm={setShowForm} onClose= {()=>setShowForm(false)}  />}
                             <a href="" className="card">
                                 <img src="https://i.imgur.com/oYiTqum.jpg" className="card__image" alt="" />
                                 <div className="card__overlay">
