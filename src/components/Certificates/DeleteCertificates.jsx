@@ -4,6 +4,7 @@ import axios from 'axios'
 
 
 function DeleteCertificates({user, certificate, setShowModel, onClose}) {
+    console.log(certificate);
     
     const modelRef = useRef()
     const closeModel= (e)=> {
@@ -15,9 +16,10 @@ function DeleteCertificates({user, certificate, setShowModel, onClose}) {
     
     async function handleDelete(e) {
         try {
-            const response = await axios.delete(`http://127.0.0.1:8000/ss/profile/certificate/${certificate.id}/`)
-            console.log(response.data)
+            const response = await axios.delete(`http://127.0.0.1:8000/ss/profile/certificate/${certificate[0].id}/`)
+            // console.log(response.data)
             // setCertificate(response.data)
+            window.location.reload();
             setShowModel(false)
         } catch (err) {
           console.error(err)
@@ -30,7 +32,7 @@ function DeleteCertificates({user, certificate, setShowModel, onClose}) {
     <div>
         <div ref={modelRef} className='EditModelContener' onClick={closeModel}>
         <div className='innerEditModelContener'>
-            <h1>Are You Sure You want to delete?</h1>
+            <h1>Are You Sure You want to delete your {certificate[0].name} Certificate?</h1>
             <button onClick= {handleDelete}>yes</button>
             <button onClick={onClose}>cancel</button>
         </div>
