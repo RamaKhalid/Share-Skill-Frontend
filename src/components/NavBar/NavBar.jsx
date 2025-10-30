@@ -20,6 +20,7 @@ function NavBar({ user, setUser }) {
       }
       <Link to={'/home'}>Home </Link>
       <Link to={'/profile'}>Profile </Link>
+      <Link to={'/certificates'}>Certificates </Link>
     </nav>
   )
 }

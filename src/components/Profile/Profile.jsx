@@ -3,8 +3,19 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 function Profile({user}) {
-    const [userInfo, setUserInfo] = useState([])
-    const [profileInfo, setProfileInfo] = useState([])
+    const [userInfo, setUserInfo] = useState({
+        username: '',
+        first_name: '',
+        last_name: '',
+        email: ''
+
+    })
+    const [profileInfo, setProfileInfo] = useState({
+        birth_date: '',
+        Level : '',
+        phone: '',
+
+    })
     // const [userAge, setUserAge] = useState('')
     const [errors, setErrors] = useState(null)
     const [updateData, setUpdateData] = useState([])
@@ -50,9 +61,10 @@ function Profile({user}) {
     try {
         console.log(profileInfo);
         await axios.put(`http://127.0.0.1:8000/ss/profile/${user.user_id}/`,profileInfo)
+        await axios.put(`http://127.0.0.1:8000/ss/user/${user.user_id}/`,userInfo)
     } catch (err) {
       console.error(err)
-      console.log(err)
+      console.log(err.response.data)
     
     }
 }
@@ -74,10 +86,10 @@ function handleUserChange(e) {
             <input value={userInfo.username} name='username' onChange={handleUserChange} />
 
             <label htmlFor="first_name">First Name: </label>
-            <input placeholder={userInfo.first_name} name='first_name'/>
+            <input value={userInfo.first_name} name='first_name' onChange={handleUserChange}/>
 
             <label htmlFor="last_name">Last Name: </label>
-            <input placeholder={userInfo.last_name} name='last_name' />
+            <input value={userInfo.last_name} name='last_name' onChange={handleUserChange} />
 
             <label htmlFor="birth_date"> Age:  </label>
             <input placeholder={age()} name='birth_date' readOnly/>
@@ -90,10 +102,10 @@ function handleUserChange(e) {
             </select>
 
             <label htmlFor="phone"  >Phone number: </label>
-            <input type='phone' name='phone' value={profileInfo.phone?profileInfo.phone :'oh no'} onChange={handleProfilChange}/>
+            <input type='phone' name='phone' value={profileInfo.phone} onChange={handleProfilChange}/>
 
             <label htmlFor="email">Email: </label>
-            <input type='email' placeholder={userInfo.email} name='email' />
+            <input type='email' value={userInfo.email} name='email' onChange={handleUserChange} />
             <button type='submit'>Save</button>
          </form>
         
