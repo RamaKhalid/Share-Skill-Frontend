@@ -12,7 +12,6 @@ function EditCertificate({user, certificate, setShowModel, onClose}) {
     const modelRef = useRef()
 
       async function handleSubmit(e){
-       
         try {
         const response = await axios.put(`http://127.0.0.1:8000/ss/profile/certificate/${certificate.id}/`, certificates)
             console.log(response.data)

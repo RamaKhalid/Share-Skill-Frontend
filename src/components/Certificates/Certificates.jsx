@@ -3,12 +3,14 @@ import "./CertificatesStyle.css"
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import EditCertificate from './EditCertificate'
+import DeleteCertificates from './DeleteCertificates'
 
 
 
 function Certificates({user}) {
     const [certificates, setCertificates]= useState([])
     const [showModal, setShowModel] =useState(false)
+    const [showDelete, setShowDelete] =useState(false)
 console.log(user.user_id);
 
     async function getAllCertificates() {
@@ -25,10 +27,17 @@ console.log(user.user_id);
     function handleEdite(e) {
         e.preventDefault()
         setShowModel(true)
+        
     }
-
-  return (
-    <div>
+    function handledelete(e) {
+        e.preventDefault()
+        console.log(certificates);
+        setShowDelete(true)
+        
+    }
+    
+    return (
+        <div>
         
         <ul className="cards">
             {
@@ -37,6 +46,7 @@ console.log(user.user_id);
                 certificates.map(certificate=>{
                     return(
                         <li>
+                            {showDelete && < DeleteCertificates user={user} certificate={certificate} setShowModel={setShowDelete} onClose= {()=>setShowDelete(false)} />}
                             {showModal && < EditCertificate user={user} certificate={certificate} setShowModel={setShowModel} onClose= {()=>setShowModel(false)} />}
                             <a href="" className="card">
                                 <img src="https://i.imgur.com/oYiTqum.jpg" className="card__image" alt="" />
@@ -51,7 +61,7 @@ console.log(user.user_id);
                                     </div>
                                     </div>
                                     <button type='button' className="card__description" onClick={handleEdite} >Edit</button>
-                                    <button className="card__description">Delete</button>
+                                    <button className="card__description" onClick={handledelete}>Delete</button>
                                 </div>
                             </a>      
                         </li>
