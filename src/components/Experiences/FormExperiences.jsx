@@ -39,8 +39,8 @@ function FormExperiences({user, experience, setShowModel, onClose }) {
         setExperienceData({...experienceData, [e.target.name]: e.target.value})
     }
   return (
-    <div ref={modelRef} className='EditModelContener' onClick={closeModel}>
-        <div className='innerEditModelContener'>
+    <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
+        <div className='innerFormModelContener'>
             <h1>{experience.length? `Edit Your ${experienceData.title} Experience` :'Add New Experience' }</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="title"> Title: </label>

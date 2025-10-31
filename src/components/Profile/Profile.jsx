@@ -1,19 +1,22 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import SkillList from './SkillList'
 
 function Profile({user}) {
     const [userInfo, setUserInfo] = useState({
         username: '',
         first_name: '',
         last_name: '',
-        email: ''
+        email: '',
+            })
 
-    })
     const [profileInfo, setProfileInfo] = useState({
         birth_date: '',
         Level : '',
         phone: '',
+        skills_user_has: [],
+        skills_user_does_not_have:[]
 
     })
     // const [userAge, setUserAge] = useState('')
@@ -108,6 +111,9 @@ function handleUserChange(e) {
             <input type='email' value={userInfo.email} name='email' onChange={handleUserChange} />
             <button type='submit'>Save</button>
          </form>
+         <div>
+            < SkillList profileInfo= {profileInfo} setProfileInfo = {setProfileInfo} />
+         </div>
         
     </div>
   )

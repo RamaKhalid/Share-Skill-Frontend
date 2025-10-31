@@ -50,9 +50,8 @@ function FormCertificate({user, certificate, setShowModel, onClose}) {
         setCertificates({...certificateData, [e.target.name]: e.target.value})
     }
   return (
-    <div ref={modelRef} className='EditModelContener' onClick={closeModel}>
-        <div className='innerEditModelContener'>
-            {/* <h1>Edit</h1> */}
+    <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
+        <div className='innerFormModelContener'>
             <h1>{certificate.length? `Edit ${certificateData.name} certificate` :'Add New certificate' }</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name"> Name: </label>
