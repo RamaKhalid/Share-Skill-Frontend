@@ -5,8 +5,7 @@ import {useState } from 'react'
 
 
 function SkillList({profileInfo, setProfileInfo }) {
-        const [showForm, setShowForm] =useState(false)
-
+    const [showForm, setShowForm] =useState(false)
     console.log(profileInfo);    
     async function associateSkill(skillId) {
         const response = await axios.patch(`http://127.0.0.1:8000/ss/profile/${profileInfo.user}/associate-skill/${skillId}/`)

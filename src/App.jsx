@@ -9,6 +9,7 @@ import { getUserFromToken } from './lib/auth'
 import Profile from './components/Profile/Profile';
 import Certificates from './components/Certificates/Certificates';
 import ExperiencesList from './components/Experiences/ExperiencesList';
+import Meetings from './components/Meetings/Meetings';
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route path='/profile' element={<Profile user={user} />}/>
         <Route path='/certificates' element={<Certificates user={user} />}/>
         <Route path='/experiences' element={<ExperiencesList user={user} />}/>
+        <Route path='/meeting' element={<Meetings user={user} />}/>
       </Routes>
     </Router>
   )
