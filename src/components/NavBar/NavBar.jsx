@@ -1,8 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router'
 import LogOutButton from '../Auth/LogOutButton'
+import { SearchBar } from '../SearchBar/SearchBar'
+import { useState } from 'react'
 
-function NavBar({ user, setUser }) {
+
+function NavBar({ user, setUser , setSkillId, setSearchData}) {
+    // const[skillID, setSkillId] = useState('')
 
  
   
@@ -18,6 +22,7 @@ function NavBar({ user, setUser }) {
             <Link to={'/login'}>Log In</Link>
           </>
       }
+      {/* <SearchBar setSkillId={setSkillId} setSearchData= {setSearchData} /> */}
       <Link to={'/home'}>Home </Link>
       <Link to={'/profile'}>Profile </Link>
       <Link to={'/certificates'}>Certificates </Link>

@@ -15,20 +15,24 @@ import Meetings from './components/Meetings/Meetings';
 
 function App() {
     const [user, setUser] = useState(getUserFromToken());
-
+    
+    
+    
 
   return (
 <Router>
       {/* Nav bar takes the user and the set user to show either login or logout buttons */}
+      {/* <NavBar user={user} setUser={setUser} setSkillId= {setSkillId} setSearchData={ setSearchData}/> */}
       <NavBar user={user} setUser={setUser}/>
       <Routes>
         <Route path='/login' element={<Login setUser={setUser}/>}/>
         <Route path='/signup' element={<SignUp />}/>
-        <Route path='/home' element={<HomePage />}/>
+        <Route path='/home' element={<HomePage  />}/>
         <Route path='/profile' element={<Profile user={user} />}/>
         <Route path='/certificates' element={<Certificates user={user} />}/>
         <Route path='/experiences' element={<ExperiencesList user={user} />}/>
         <Route path='/meeting' element={<Meetings user={user} />}/>
+        
       </Routes>
     </Router>
   )
