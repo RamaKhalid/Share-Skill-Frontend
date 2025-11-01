@@ -15,7 +15,8 @@ function Profile({user}) {
         birth_date: '',
         Level : '',
         phone: '',
-        skills_user_has: [],
+        skills_user_teach: [],
+        skills_user_learn: [],
         skills_user_does_not_have:[]
 
     })
@@ -112,7 +113,7 @@ function handleUserChange(e) {
             <button type='submit'>Save</button>
          </form>
          <div>
-            < SkillList profileInfo= {profileInfo} setProfileInfo = {setProfileInfo} />
+            < SkillList user= {user} profileInfo= {profileInfo} setProfileInfo = {setProfileInfo} />
          </div>
         
     </div>

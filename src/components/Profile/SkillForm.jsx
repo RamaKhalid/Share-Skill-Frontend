@@ -2,23 +2,32 @@ import { useState, useRef } from 'react'
 import axios from 'axios'
 
 
-function SkillForm({onClose}) {
+function SkillForm({onClose, userId}) {
     const [skill, setSkill]= useState({
         type: '',
-        name: ''
+        name: '',
+        role : 'Teach'
     })
 
     const modelRef = useRef()
 
     async function handleSubmit(e){
+        // e.preventDefault()
+        console.log(userId);
         try {        
-            response = await axios.post(`http://127.0.0.1:8000/ss/skills/`, skill)
+          console.log(skill.role);
+          
+            response = await axios.post(`http://127.0.0.1:8000/ss/skills/${userId}`, skill)
             console.log(response.data)
             setSkill(response.data)
             setShowModel(false)
+          
         } catch (err) {
-          console.error(err)
-          console.log(err.response.data)
+          if (err.response && err.response.status === 400) {
+          alert('Skill alrady exist')
+          }
+          console.error(err.response)
+          console.log(err.response)
             }
         }
         
@@ -44,6 +53,12 @@ function SkillForm({onClose}) {
 
             <label htmlFor="name">Name: </label>
             <input value={skill.name} name='name' onChange={handleChange} />
+
+            <label htmlFor="role">Role: </label>
+            <select value={skill.role} name='role' onChange={handleChange} >
+              <option value="Teach">Teach</option>
+              <option value="Learn">Learn</option>
+              </select>
             
                 <button  type='submit'>Save</button>
                 <button onClick={onClose}>cancel</button>
