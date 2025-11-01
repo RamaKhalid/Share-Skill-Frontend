@@ -49,3 +49,7 @@
   height: 800px;
   max-height: 90vh;
 }
+
+.list_buttons{
+  margin: 10px;
+}

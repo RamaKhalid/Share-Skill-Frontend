@@ -4,10 +4,11 @@ import axios from 'axios'
 
 import './homeStyle.scss';
 import { SearchBar } from '../SearchBar/SearchBar';
+import Match from '../Match/Match';
 
 
 
-function HomePage() {
+function HomePage({user}) {
     
     const [users, setUSers] = useState([])
     const [profileList, setProfileList] = useState([])
@@ -58,7 +59,7 @@ function HomePage() {
   return (
     <div>
         <SearchBar setSkillId={setSkillId} onTrigger={getUserBySkill}  />
-
+        <Match user= {user} />
         <h1>Users:</h1>
 
         <div className="container">

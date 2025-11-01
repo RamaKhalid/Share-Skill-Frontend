@@ -20,9 +20,8 @@ function Profile({user}) {
         skills_user_does_not_have:[]
 
     })
-    // const [userAge, setUserAge] = useState('')
+    
     const [errors, setErrors] = useState(null)
-    const [updateData, setUpdateData] = useState([])
 
     async function getUserProfile() {
         try {

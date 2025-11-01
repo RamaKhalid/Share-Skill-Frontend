@@ -10,6 +10,7 @@ import Profile from './components/Profile/Profile';
 import Certificates from './components/Certificates/Certificates';
 import ExperiencesList from './components/Experiences/ExperiencesList';
 import Meetings from './components/Meetings/Meetings';
+import MatchedPage from './components/Match/MatchedPage';
 
 
 
@@ -27,11 +28,12 @@ function App() {
       <Routes>
         <Route path='/login' element={<Login setUser={setUser}/>}/>
         <Route path='/signup' element={<SignUp />}/>
-        <Route path='/home' element={<HomePage  />}/>
+        <Route path='/home' element={<HomePage user={user}  />}/>
         <Route path='/profile' element={<Profile user={user} />}/>
         <Route path='/certificates' element={<Certificates user={user} />}/>
         <Route path='/experiences' element={<ExperiencesList user={user} />}/>
         <Route path='/meeting' element={<Meetings user={user} />}/>
+        <Route path='/match' element={<MatchedPage user={user} />}/>
         
       </Routes>
     </Router>
