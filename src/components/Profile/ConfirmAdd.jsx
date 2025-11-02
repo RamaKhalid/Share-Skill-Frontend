@@ -2,11 +2,12 @@ import { useState, useRef } from 'react'
 import axios from 'axios'
 
 
-function ConfirmAdd({onClose,associateSkill ,setRole, skillId, skillName}) {
+function ConfirmAdd({onClose,associateSkill ,setRole, skillData}) {
     const [skill, setSkill]= useState('Teach')
 
    
-
+  console.log(skillData);
+  
     const modelRef = useRef()
 
     async function handleSubmit(e){
@@ -14,7 +15,7 @@ function ConfirmAdd({onClose,associateSkill ,setRole, skillId, skillName}) {
         console.log(skill);
         
         setRole(skill)
-        associateSkill(skillId)
+        associateSkill(skillData.id)
         }
         
 
@@ -34,7 +35,7 @@ function ConfirmAdd({onClose,associateSkill ,setRole, skillId, skillName}) {
     <div>
         <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
         <div className='innerFormModelContener'>
-            <h1>Are you Going to Teach or to Learn {skillName} skill?</h1>
+            <h1>Are you Going to Teach or to Learn {skillData.name} skill?</h1>
             <form onSubmit={handleSubmit}>
             <select value={skill} name='role' onChange={handleChange} >
               <option value="Teach">Teach</option>

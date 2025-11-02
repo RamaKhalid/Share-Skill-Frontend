@@ -9,6 +9,10 @@ function SkillList({profileInfo, setProfileInfo, user }) {
     const [showForm, setShowForm] =useState(false)
     const [showConfirm, setShowConfirm] =useState(false)
     const [role, setRole]=useState('')
+    const [skillData, setSkillData]=useState({
+        name:'',
+        id: ' '
+    })
     const [errors, setErrors] = useState(null)
     
 
@@ -59,8 +63,12 @@ function SkillList({profileInfo, setProfileInfo, user }) {
      }
 
      function addTeachingSkill(e) {
-        e.preventDefault()
+         e.preventDefault()
+         e.target.value
+         setSkillData( {...skillData, name: e.target.name, id: e.target.id})
         setShowConfirm(true)
+        console.log(e.target.name);
+        
         // associateSkill(skill.id)
         
      }
@@ -78,7 +86,7 @@ function SkillList({profileInfo, setProfileInfo, user }) {
                                 ?
                                 profileInfo.skills_user_teach.map(skill => {
                                     return (
-                                        <li>
+                                        <li key={skill.id}>
                                             {skill.type} {skill.name}
                                             <button onClick={() => { desocciateSkill(skill.id) }}>Delete skill</button>
                                         </li>
@@ -104,7 +112,7 @@ function SkillList({profileInfo, setProfileInfo, user }) {
                                 ?
                                 profileInfo.skills_user_learn.map(skill => {
                                     return (
-                                        <li>
+                                        <li key={skill.id}>
                                              {skill.type} {skill.name}
                                             <button onClick={() => { desocciateSkill(skill.id) }}>Delete skill</button>
                                         </li>
@@ -131,15 +139,15 @@ function SkillList({profileInfo, setProfileInfo, user }) {
                                 ?
                                 profileInfo.skills_user_does_not_have.map(skill => {
                                     return (
-                                        <li>
+                                        <li key={skill.id}>
                                              {skill.type} {skill.name}
                                             {showConfirm 
                                                 && 
-                                            <ConfirmAdd skillName={skill.name} skillId={skill.id} 
+                                            <ConfirmAdd skillData= {skillData} 
                                             associateSkill={associateSkill} 
                                             setRole={setRole}  onClose= {()=>setShowConfirm(false)}/>
                                             }
-                                            <button onClick={addTeachingSkill}>Add Skill</button>
+                                            <button id={skill.id}  name={skill.name} onClick={addTeachingSkill}>Add Skill</button>
                                         </li>
                                     )
                                 })
