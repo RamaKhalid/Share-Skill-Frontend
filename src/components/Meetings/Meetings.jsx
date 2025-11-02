@@ -1,42 +1,49 @@
-import React from 'react'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
+
+import Schedule from './Schedule'
+import MeetingForm from './MeetingForm'
 
 
-function Meetings() {
-    const [meeting, setMeesting]= useState()
-        async function handleSubmit(e){
-        try {        
-            response = await axios.post(`http://127.0.0.1:8000/ss/meetings/`, skill)
+function Meetings({user}) {
+const [showForm, setShowForm] =useState(false)
+    const [meetingsList, setMeestingList]= useState({
+        date: '',
+        starting_time: '',
+        end_time: '',
+        is_complete: false,
+    })
+
+    async function gettMeeting() {
+         try {        
+            const response = await axios.get(`http://127.0.0.1:8000/ss/meetings/${user.user_id}`)
             console.log(response.data)
-            setSkill(response.data)
-            setShowModel(false)
+            setMeestingList(response.data)
         } catch (err) {
-          console.error(err)
-          console.log(err.response.data)
+          if (err.response) {
+                console.error( err.response.data);
+            } else {
+                console.error( err.message);
+            }
             }
         }
+
+    useEffect(() => {
+    gettMeeting ()
+  }, [])
+    
+
+    function handleClick(e) {
+        e.preventDefault()
+            setShowForm(true)
+     }
+      
+
   return (
-
     <div>
-        <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
-        <div className='innerFormModelContener'>
-            <h1>Add New Meeting</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="date"> Type: </label>
-            <input value={skill.date} name='date' onChange={handleChange}/>
-
-            <label htmlFor="time">Name: </label>
-            <input value={skill.time} name='time' onChange={handleChange} />
-
-            <label htmlFor="time">Name: </label>
-            <input value={skill.time} name='time' onChange={handleChange} />
-            
-                <button  type='submit'>Save</button>
-                <button onClick={onClose}>cancel</button>
-            </form>
-        </div>
-    </div>
-        
+        {showForm && <MeetingForm  user={user} onClose= {()=>setShowForm(false)}/>}
+        <button onClick={handleClick} >Add meeting</button>
+        <Schedule user= {user} meetingsList= {meetingsList}/>
     </div>
   )
 }

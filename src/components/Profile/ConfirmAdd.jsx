@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react'
-import axios from 'axios'
 
 
 function ConfirmAdd({onClose,associateSkill ,setRole, skillData}) {

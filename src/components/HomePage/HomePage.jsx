@@ -50,10 +50,8 @@ function HomePage({user}) {
         if (userSkill){
         //    console.log(userSkill);
             setUSers(userSkill)
-            setSow(false) 
-           
+            setSow(false)  
         }
-        
     }
 
   return (
