@@ -4,7 +4,7 @@ function MatchedPage() {
     const location = useLocation();
     const { data } = location.state || {};  // safely extract the passed data
 
-  console.log("Received data:", data);
+  console.log("Match data:", data);
 
   function getSkil(skillId){
        const skill = data.Learn_skill_data.find(skill=> skill.id === skillId)
