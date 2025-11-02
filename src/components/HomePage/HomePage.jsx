@@ -40,15 +40,15 @@ function HomePage({user}) {
     }
 
     function getUserBySkill(sID){
-        console.log(sID);
+        // console.log(profileList);
         
-       const userProfile = profileList.find((profile)=> {
+       const userProfile = profileList.filter((profile)=> {
         return profile.skills.some((skill)=> skill === sID) })
-        console.log(userProfile.user);
+        console.log(userProfile);
         
-        const userSkill = users.filter((user)=>  user.id === userProfile.user)
+        const userSkill = users.filter((user)=> userProfile.some((profile) => profile.user === user.id))
         if (userSkill){
-           console.log(userSkill);
+        //    console.log(userSkill);
             setUSers(userSkill)
             setSow(false) 
            
@@ -58,7 +58,7 @@ function HomePage({user}) {
 
   return (
     <div>
-        <SearchBar setSkillId={setSkillId} onTrigger={getUserBySkill}  />
+        <SearchBar setSkillId={setSkillId} onTrigger={getUserBySkill} user={user} />
         <Match user= {user} />
         <h1>Users:</h1>
 

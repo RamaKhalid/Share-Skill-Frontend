@@ -6,14 +6,14 @@ import axios from 'axios'
 
 import "./SearchBar.css";
 
-export const SearchBar = ({setSkillId, onTrigger}) => {
+export const SearchBar = ({setSkillId, onTrigger, user}) => {
   const [input, setInput] = useState("");
   const [results, setResults] = useState([]);
   const selectRef =useRef()
 //   const[skillID, setSkillId] = useState('')
 
   async function getSkills(event) {
-        const response = await axios.get(`http://127.0.0.1:8000/ss/skills/`)
+        const response = await axios.get(`http://127.0.0.1:8000/ss/skills/${user.user_id}`)
         event = event.toLowerCase()
         console.log(response.data)
         const results = response.data.filter((result)=>{
@@ -39,14 +39,17 @@ export const SearchBar = ({setSkillId, onTrigger}) => {
     getSkills(value);
   };
 
-  const handleClick = (event)=>{
-    console.log(event);
+  const handleClick = (e , id)=>{
+    console.log(id);
     //Check why it tack python when i click programming
-    setSkillId(event)
-    setInput(selectRef.current.textContent)
+    setSkillId(id)
+
+    console.log('ref',e.currentTarget.textContent);
+    
+    setInput(e.currentTarget.textContent)
     // console.log(`this is a ref: ${selectRef.current.textContent}`);
     
-    onTrigger(event)
+    onTrigger(id)
     
   }
 
@@ -63,7 +66,7 @@ export const SearchBar = ({setSkillId, onTrigger}) => {
         <div className="results-list">
             {results.map((result, id) => {
             return (
-                <div key={id} ref={selectRef} className="search-result" onClick={(e)=>handleClick(result.id)} value={result.id}>
+                <div key={id}  ref={selectRef}  className="search-result" onClick={(e)=>handleClick(e,result.id)} value={result.id}>
                     {result.name? result.name: result.type}
                 </div>
             )
