@@ -7,29 +7,48 @@ function MatchedPage() {
   console.log("Received data:", data);
 
   function getSkil(skillId){
-       const skill = data.skill_data.find(skill=> skill.id === skillId)
+       const skill = data.Learn_skill_data.find(skill=> skill.id === skillId)
         if (skill)
         return skill.name
     }
   
-  function getUsersSkil(userID){
+  function getUsersSkil(userID){    
        const userSkill = data.users_can_teach_and_learn_by_you.find(profile=> profile.user === userID)
         if (userSkill)
-            console.log('kk',userSkill);
-            
-        // getSkil( userSkill.skill)
+            // console.log(userSkill.skill);
+            return getSkil( userSkill.skill)
     }
 
   function getUsersId(userID){
        const userProfile = data.profile_user.find(profile=> profile.user === userID)
         if (userProfile)
         {
-            console.log(userProfile.user);
-            getUsersSkil(userProfile.user)
-
-        }
-            
+            // console.log(userProfile.id);
+            return getUsersSkil(userProfile.id)
+        }  
     }
+
+    function getUserTeachSkill(userID){
+        const userProfile = data.profile_user.find(profile=> profile.user === userID)
+        if (userProfile)
+            {
+                // console.log(userProfile.id);
+                const userSkillList = data.users_can_teach_you.filter(profile=> profile.user === userProfile.id)
+                if (userSkillList){
+                    // console.log(userSkillList);
+                    return userSkillList.map(user=> {
+                        const skill = data.teach_skill_data.find(skill=> skill.id === user.skill)
+                        if (skill)
+                        // {console.log(skill.name);
+                        return <p key={skill.id}>{skill.name}</p>
+                        // }
+                        
+                    })
+                } 
+            } 
+    }
+
+
   
     return (
     <div>
@@ -45,7 +64,9 @@ function MatchedPage() {
                             <div className="img"><img src="https://unsplash.it/200/200"/></div>
                             <div className="cardContent">
                             <h3>{user.first_name} - {user.last_name}<br/>
-                            <span>Can Teach:{getUsersId(user.id)} </span></h3>
+                            <span>Can Teach:{getUserTeachSkill(user.id)} </span><br/>
+                            <span>To Learn:{getUsersId(user.id)} </span>
+                            </h3>
                             </div>
                         </div>
                         <ul className="sci">
