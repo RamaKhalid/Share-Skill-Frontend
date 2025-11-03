@@ -10,11 +10,11 @@ function ConfirmAdd({onClose,associateSkill ,setRole, skillData}) {
     const modelRef = useRef()
 
     async function handleSubmit(e){
-        // e.preventDefault()
+        e.preventDefault()
         console.log(skill);
-        
         setRole(skill)
         associateSkill(skillData.id)
+        onClose()
         }
         
 

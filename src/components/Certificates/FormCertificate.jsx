@@ -1,17 +1,20 @@
 import { useState, useRef } from 'react'
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
+import AlertMessage from '../Alert/AlertMessage';
 
 
 
 
-function FormCertificate({user, certificate, setShowModel, onClose}) {  
-  console.log(certificate);
+function FormCertificate({user,setSuccess, certificate, setShowModel, onClose}) {  
+  console.log("certificate");
   
     const [certificateData, setCertificates]= useState({
         name : certificate.length? certificate[0].name: '',
         type: certificate.length? certificate[0].type :'',
         owner: user.user_id
       })
+      const [errors, setErrors] = useState(null)
+      
     // const [certificateData, setCertificates]= useState({
     //     name :'',
     //     type: '',
@@ -20,29 +23,49 @@ function FormCertificate({user, certificate, setShowModel, onClose}) {
     const modelRef = useRef()
 
       async function handleSubmit(e){
-
+        e.preventDefault()
         try {
           let response = {}
           if (certificate.length){
-            response = await authRequest(
+            const response = await authRequest(
                             {data: certificateData,
                              method:'put',
                              url: `http://127.0.0.1:8000/ss/profile/certificate/${certificate[0].id}/`})
-          }else{
-            console.log('poooosssttt');
-            
-            response = await authRequest(
+          if (response){
+            setSuccess('Your Certificate Is Updeated Successfully! ')
+            onClose()
+          }
+              
+          }else{            
+            const response = await authRequest(
                             {data: certificateData,
                              method:'post',
                              url:`http://127.0.0.1:8000/ss/profile/${user.user_id}/certificate/`})
+            if (response){
+            setSuccess('Your Certificate is Added Successfully! ')
+            
+          }
 
           }
             console.log(response.data)
             setCertificates(response.data)
-            setShowModel(false)
+            onClose()
         } catch (err) {
           console.error(err)
           console.log(err.response.data)
+          if (err.response.data){
+            if(err.response.data.name && !err.response.data.type){
+              setErrors('Please Enter a Name for you certificate')
+            }
+            if(err.response.data.type && !err.response.data.name){
+              setErrors('Please Enter a Type For You Certificate')
+            }
+            if(err.response.data.type && err.response.data.name){
+              setErrors('Please Enter a Name and Type For You Certificate')
+
+            }
+          }
+            
             }
         }
         
@@ -59,12 +82,13 @@ function FormCertificate({user, certificate, setShowModel, onClose}) {
   return (
     <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
         <div className='innerFormModelContener'>
+            {errors?< AlertMessage severity_name="error" message={errors}/> : '' }
             <h1>{certificate.length? `Edit ${certificateData.name} certificate` :'Add New certificate' }</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name"> Name: </label>
             <input value={certificateData.name} name='name' onChange={handleChange}/>
 
-            <label htmlFor="type">Type Name: </label>
+            <label htmlFor="type">Type: </label>
             <input value={certificateData.type} name='type' onChange={handleChange} />
                 <button  type='submit'>Save</button>
                 <button onClick={onClose}>cancel</button>

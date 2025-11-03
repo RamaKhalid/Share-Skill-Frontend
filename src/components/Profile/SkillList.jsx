@@ -51,6 +51,11 @@ function SkillList({profileInfo, setProfileInfo, user }) {
             }
         } catch (error) {
             console.log(error)
+            if (err.response) {
+                console.error( err.response.data);
+            } else {
+                console.error( err.message);
+            }
             setErrors(error.response.data.error)
         }
         }
@@ -98,6 +103,7 @@ function SkillList({profileInfo, setProfileInfo, user }) {
   return (
     <div>
         {success?<AlertMessage severity_name="success" message={success}/> : '' }
+        {role?<AlertMessage severity_name="success" message={`The Skill Is Added To Your ${role} Skill List Successfully`}/> : '' }
         {errors?< AlertMessage severity_name="error" message={errors}/> : '' }
         <h3>Skill You Teach:</h3>
             {

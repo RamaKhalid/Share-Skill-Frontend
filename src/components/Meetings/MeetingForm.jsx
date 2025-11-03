@@ -33,7 +33,6 @@ function MeetingForm({user,meetings, meetingId ,onClose}) {
                             {data: meeting,
                              method:'put',
                              url:`http://127.0.0.1:8000/ss/meetings/${user.user_id}`})
-
           }
             console.log(response.data)
             setMeesting(response.data)

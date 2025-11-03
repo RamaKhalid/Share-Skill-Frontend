@@ -42,14 +42,14 @@ function ExperiencesList({user}) {
         <div>
         
         <ul className="cards">
+            {showDelete && < DeleteExperiences user={user} experience={oneExperiences} setShowForm={setShowDelete} onClose= {()=>setShowDelete(false)} />}
+            {showForm && < FormExperiences user={user} experience={oneExperiences} setShowForm={setShowForm} onClose= {()=>setShowForm(false)}  />}
             {
                 experiencesList.length
                 ?
                 experiencesList.map(certificate=>{
                     return(
                         <li key={certificate.id}>
-                            {showDelete && < DeleteExperiences user={user} experience={oneExperiences} setShowForm={setShowDelete} onClose= {()=>setShowDelete(false)} />}
-                            {showForm && < FormExperiences user={user} experience={oneExperiences} setShowForm={setShowForm} onClose= {()=>setShowForm(false)}  />}
                             <a href="" className="card">
                                 <img src="https://i.imgur.com/oYiTqum.jpg" className="card__image" alt="" />
                                 <div className="card__overlay">
@@ -74,14 +74,14 @@ function ExperiencesList({user}) {
                     <a href="" className="card">
                         <div className="card__overlay">
                             <div className="card__header">
-                                <h3 className="card__title">No Certificate Yet</h3>            
+                                <h3 className="card__title">No Experiences Yet</h3>            
                             </div>
                         </div>
                     </a>      
                 </li>
             }
             
-            <button name='addNew' className="card__status" onClick={handleClick}>Add New Certificate</button>
+            <button name='addNew' className="card__status" onClick={handleClick}>Add New Experiences</button>
         </ul>
     </div>
   )

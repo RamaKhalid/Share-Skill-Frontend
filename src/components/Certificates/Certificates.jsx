@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 import FormCertificate from './FormCertificate'
 import DeleteCertificates from './DeleteCertificates'
+import AlertMessage from '../Alert/AlertMessage'
 
 
 
@@ -12,6 +13,7 @@ function Certificates({user}) {
     const [onecertificate, setOneCertificate]= useState([])
     const [showModal, setShowModel] =useState(false)
     const [showDelete, setShowDelete] =useState(false)
+    const [success, setSuccess] = useState(null)
 console.log(user.user_id);
 
     async function getAllCertificates() {
@@ -33,6 +35,7 @@ console.log(user.user_id);
         const certificate = certificates.filter((certificate)=> certificate.id == e.target.value)
         setOneCertificate(certificate)
         if (e.target.name === 'edit' || e.target.name === 'addNew' ){
+            console.log(e.target.name);
             setShowModel(true)
         }
         if (e.target.name === 'delete'){
@@ -44,14 +47,16 @@ console.log(user.user_id);
         <div>
         
         <ul className="cards">
+            
+            {showModal && < FormCertificate user={user} setSuccess={setSuccess} certificate={onecertificate} setShowModel={setShowModel} onClose= {()=>setShowModel(false)}  />}
+            {showDelete && < DeleteCertificates user={user} certificate={onecertificate} setShowModel={setShowDelete} onClose= {()=>setShowDelete(false)} />}
+            {success?<AlertMessage severity_name="success" message={success}/> : '' }
             {
                 certificates.length
                 ?
                 certificates.map(certificate=>{
                     return(
-                        <li>
-                            {showDelete && < DeleteCertificates user={user} certificate={onecertificate} setShowModel={setShowDelete} onClose= {()=>setShowDelete(false)} />}
-                            {showModal && < FormCertificate user={user} certificate={onecertificate} setShowModel={setShowModel} onClose= {()=>setShowModel(false)}  />}
+                        <li key={certificate.id}>
                             <a href="" className="card">
                                 <img src="https://i.imgur.com/oYiTqum.jpg" className="card__image" alt="" />
                                 <div className="card__overlay">
