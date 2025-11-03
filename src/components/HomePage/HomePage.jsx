@@ -15,7 +15,8 @@ function HomePage({user}) {
     const [profileList, setProfileList] = useState([])
     const [show, setSow]= useState(true)
     const [userSearch , setUserSearch] = useState([])
-
+   
+    
     const[skillID, setSkillId] = useState('')
 
     // console.log(searchData);

@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 function MatchedPage() {
     const location = useLocation();
-    const { data } = location.state || {};  // safely extract the passed data
+    const { data } = location.state || {};  
 
   console.log("Match data:", data);
 

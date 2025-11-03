@@ -24,7 +24,7 @@ export default function SignUp() {
     try {
       if (pass){
         const response= await axios.post('http://127.0.0.1:8000/ss/signup/', { username, first_name, last_name, password, email, birth_date, level, phone })
-        navigate('/login')
+        navigate('/login/', { state: { data: response.data }})
       }
      
       
