@@ -3,13 +3,13 @@ import axios from 'axios'
 
 
 function SkillForm({onClose, userId}) {
+    const modelRef = useRef()
     const [skill, setSkill]= useState({
         type: '',
         name: '',
         role : 'Teach'
     })
 
-    const modelRef = useRef()
 
     async function handleSubmit(e){
         // e.preventDefault()

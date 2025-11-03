@@ -44,16 +44,16 @@ function FormExperiences({user, experience, setShowModel, onClose }) {
             <h1>{experience.length? `Edit Your ${experienceData.title} Experience` :'Add New Experience' }</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="title"> Title: </label>
-            <input value={experienceData.title} name='title' onChange={handleChange}/>
+            <input value={experienceData.title} name='title' onChange={handleChange} required/>
 
             <label htmlFor="date">Date: </label>
-            <input type='date' value={experienceData.date} name='date' onChange={handleChange} />
+            <input type='date' value={experienceData.date} name='date' onChange={handleChange} required />
 
             <label htmlFor="description">Description: </label>
-            <textarea value={experienceData.description} name='description' onChange={handleChange} />
+            <textarea value={experienceData.description} name='description' onChange={handleChange} required />
             
             <label htmlFor="place">Place: </label>
-            <input value={experienceData.place} name='place' onChange={handleChange} />
+            <input value={experienceData.place} name='place' onChange={handleChange} required />
             
                 <button  type='submit'>Save</button>
                 <button onClick={onClose}>cancel</button>

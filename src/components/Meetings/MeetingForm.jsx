@@ -3,22 +3,31 @@ import { useRef, useState } from 'react'
 import axios from 'axios'
 
 
-function MeetingForm({user,onClose}) {
+function MeetingForm({user,meetings, meetingId ,onClose}) {
      const modelRef = useRef()
+     console.log(meetings);
+     
 
     const [meeting, setMeesting]= useState({
-        date: '',
-        starting_time: '',
-        end_time: '',
-        is_complete: false,
+        date: meetings? meetings[0].date : '',
+        starting_time:  meetings? meetings[0].starting_time : '',
+        end_time:  meetings? meetings[0].end_time : '',
+        is_complete:meetings? meetings[0].is_complete : '',
         user:user.user_id
 
     })
         async function handleSubmit(e){
         e.preventDefault()
 
+        let response= {}
         try {        
-            const response = await axios.post(`http://127.0.0.1:8000/ss/meetings/${user.user_id}`, meeting)
+          if(meetingId){
+            response = await axios.put(`http://127.0.0.1:8000/ss/meeting/${meetingId}/`, meeting)
+          }
+          else{
+            response = await axios.post(`http://127.0.0.1:8000/ss/meetings/${user.user_id}`, meeting)
+
+          }
             console.log(response.data)
             setMeesting(response.data)
             onClose()
@@ -45,16 +54,16 @@ function MeetingForm({user,onClose}) {
     <div>
         <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
         <div className='innerFormModelContener'>
-            <h1>Add New Meeting</h1>
+            <h1>{meetings? 'Edit your meeting':'Add New Meeting'}</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="date"> Date: </label>
-            <input type='date' value={meeting.date} name='date' onChange={handleChange}/>
+            <input type='date' value={meeting.date} name='date' onChange={handleChange}required/>
 
             <label htmlFor="starting_time">Starting Time: </label>
-            <input type='time' value={meeting.starting_time} name='starting_time' onChange={handleChange} />
+            <input type='time' value={meeting.starting_time} name='starting_time' onChange={handleChange}required />
 
             <label htmlFor="end_time">End Time: </label>
-            <input type='time' value={meeting.end_time} name='end_time' onChange={handleChange} />
+            <input type='time' value={meeting.end_time} name='end_time' onChange={handleChange}required />
             
                 <button  type='submit'>Save</button>
                 <button onClick={onClose}>cancel</button>

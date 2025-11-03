@@ -24,54 +24,58 @@ function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
   })
   
 
-  function handleClick(e) {
+  function handleClick(e, id) {
       e.preventDefault()
+        console.log(id)
+        
+        const meeting = meetingsList.filter((meeting)=> meeting.id == id)
+        setMeetings(meeting)
+        console.log(meeting);
+        
+        if (e.target.name === 'edit' ){
+          setMeetingId(id)
+          setShowForm(true)
+
+        }
+         if (e.target.name === 'addNew' ){
             setShowForm(true)
+        }
      }
 
-     async function handleSubmit(e) {
-      e.preventDefault()
-      console.log(e)
-        try {        
-            const response = await axios.put(`http://127.0.0.1:8000/ss/meeting/${meetingId}/`, meetings)
-            console.log(response.data)
-            setMeetings(response.data)
-        } catch (err) {
-          if (err.response) {
-                console.error( err.response.data);
-            } else {
-                console.error( err.message);
-            }
-            }
-        }
+    //  async function handleSubmit(e) {
+    //   e.preventDefault()
+    //   console.log(e)
+    //     try {        
+    //         const response = await axios.put(`http://127.0.0.1:8000/ss/meeting/${meetingId}/`, meetings)
+    //         console.log(response.data)
+    //         setMeetings(response.data)
+    //     } catch (err) {
+    //       if (err.response) {
+    //             console.error( err.response.data);
+    //         } else {
+    //             console.error( err.message);
+    //         }
+    //         }
+    //     }
         function handleDelete(e,id) {
           setMeetingId(id)
           setShowDelete(true)
         }
-
-        // async function handleDelete(e, id ) {
-          
-        //     try {        
-        //     const response = await axios.delete(`http://127.0.0.1:8000/ss/meeting/${id}/`)
-        //     window.location.reload();
-        // } catch (err) {
-        //   if (err.response) {
-        //         console.error( err.response.data);
-        //     } else {
-        //         console.error( err.message);
-        //     }
-        //     }
-        // }
-        
-      
      
 
       function handleChange(e) {
-        console.log(Object.keys(meetingsList));
-          setMeestingList({...meetingsList, [e.target.name]: e.target.value})
+        console.log(e.target);
+        meetingsList.map((meeting,ind)=>{
+          if (meeting.id ==e.target.id) {
+            setMeestingList({...meetingsList, 
+              [ind] : {...meetingsList[ind].id ,[e.target.name]: e.target.value},})
+          // setMeetings(meetingsList)
         
-        setMeetingId(e.target.id)
-        // setMeetings(meetingsList)
+          }else{
+            setMeestingList({...meetingsList,[e.target.name]: e.target.value,})
+          }
+
+        })
         
         
     }
@@ -84,8 +88,8 @@ function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
 
     <div className="meeting_toolbar">
       {showDelete && <DeleteMeeting  user={user}  meetingId={meetingId} onClose= {()=>setShowDelete(false)}/>}
-      {showForm && <MeetingForm  user={user} userData={userData} onClose= {()=>setShowForm(false)}/>}
-      <button onClick={handleClick}  className="create-btn">
+      {showForm && <MeetingForm  user={user} meetingId={meetingId} meetings ={meetings} setMeestingList={setMeestingList} onClose= {()=>setShowForm(false)}/>}
+      <button onClick={handleClick} name='addNew'  className="create-btn">
       {/* <button className="create-btn"> */}
         <FaPlus className="icon" /> Create New Meeting
       </button>
@@ -93,7 +97,7 @@ function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
 
     {meetingsList.length ? (
       <div className="meeting_table-wrapper">
-        <form  onSubmit={handleSubmit}>
+        
         <table className="meeting_table">
           <thead>
             <tr>    
@@ -103,14 +107,14 @@ function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
           <tbody>
             {meetingsList.map((meeting) => (
               <tr key={`MET${meeting.id}`}>
-                <td><span><input type='date' id={meeting.id} name='date' value={meeting.date} onChange={handleChange} required/></span></td>
-                <td><span><input type='time' id={meeting.id} name='starting_time' value={meeting.starting_time} onChange={handleChange} required/></span></td>
-                <td><span><input type='time'id={meeting.id} name='end_time' value={meeting.end_time} onChange={handleChange} required/></span></td>
-                <td><span><input name='is_complete' id={meeting.id} value={meeting.is_complete? 'Done': "Not Done Yet!"} onChange={handleChange}/></span></td>
+                <td><span>{meeting.date} </span></td>
+                <td><span>{meeting.starting_time}</span></td>
+                <td><span>{meeting.end_time}</span></td>
+                <td><span>{meeting.is_complete? 'Done': "Not Done Yet!"} </span></td>
                 
                 <td>
                   <div className="meeting_actions">
-                    <button type='submit'className="meeting_edit-btn" ><FaEdit /></button>
+                    <button type='button'className="meeting_edit-btn" name='edit' onClick={(e)=>handleClick(e,meeting.id)} ><FaEdit /></button>
                     <button type='button'name='delete' value={meeting.id} onClick={(e)=>{handleDelete(e, meeting.id)}} className="meeting_delete-btn"><FaTrash /></button>
                   </div>
                 </td>
@@ -119,7 +123,7 @@ function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
             ))}
           </tbody>
         </table>
-            </form>
+        
       </div>
     ):
     (
@@ -147,110 +151,3 @@ function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
 export default Schedule
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { useEffect, useState } from 'react'
-
-// import { useCalendarApp, ScheduleXCalendar } from '@schedule-x/react'
-// import {
-//   createViewDay,
-//   createViewMonthAgenda,
-//   createViewMonthGrid,
-//   createViewWeek,
-// } from '@schedule-x/calendar'
-// import { createEventsServicePlugin } from '@schedule-x/events-service'
-// import 'temporal-polyfill/global'
-// import '@schedule-x/theme-default/dist/index.css'
-// import { createEventModalPlugin } from '@schedule-x/event-modal'
-// import { createDragAndDropPlugin } from '@schedule-x/drag-and-drop'
-// import MeetingForm from './MeetingForm'
-
-
-// function Schedule({meetingsList}) {
-//   console.log(meetingsList);
-//   let scheduleMeeting =[]
-  
-// const eventsService = useState(() => createEventsServicePlugin())[0]
-
-// if(meetingsList && meetingsList[0]) 
-// {
-//   scheduleMeeting = meetingsList.map(meeting =>{
-//   return{
-//         id: meeting.id,
-//         title: 'Event 1',
-//         start: Temporal.ZonedDateTime.from(`${meeting.date}T${meeting.starting_time}[Asia/Riyadh]`),
-//         end: Temporal.ZonedDateTime.from(`${meeting.date}T${meeting.end_time}[Asia/Riyadh]`),
-//         people: ['Ram'],
-//         description: 'Vai Zoom',
-//   } } )
-//  console.log(scheduleMeeting);
-// }
- 
-//   const calendar = useCalendarApp({
-//     views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
-//     events: [
-//       {
-//         id: '1',
-//         title: 'Event 1',
-//         start: Temporal.ZonedDateTime.from('2025-10-31T09:00[Asia/Riyadh]'),
-//         end: Temporal.ZonedDateTime.from('2025-10-31T10:00[Asia/Riyadh]'),
-//         people: ['George'],
-//         description: 'Vai Zoom',
-//       },
-//     ],
-//     plugins: [
-//       eventsService,
-//         createEventModalPlugin(),
-//         createDragAndDropPlugin(),
-//     ]
-//   })
- 
-//   useEffect(() => {
-//     // get all events
-//     eventsService.getAll()
-//   }, [])
-
-// function handleClick(e) {
-//         e.preventDefault()
-//         setShowForm(true)
-//       }
-      
-      
- 
-//   return (
-//     <div>
-      
-//       <ScheduleXCalendar calendarApp={calendar} />
-//     </div>
-//   )
-// }
-
-// export default Schedule
