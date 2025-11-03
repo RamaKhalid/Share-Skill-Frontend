@@ -1,0 +1,169 @@
+/* sorce code for the table: https://purecode.ai/discover/html/table */
+
+.meeting_container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background-color: #f3f4f6;
+  min-height: 100vh;
+}
+
+.meeting_page_title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}
+
+/* Card styling */
+.meeting_card {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+}
+
+/* Toolbar (search + button) */
+.meeting_toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.meeting_search-box {
+  position: relative;
+}
+
+.meeting_search-box input {
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.meeting_search-box input:focus {
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+.meeting_search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  color: #9ca3af;
+}
+
+
+.meeting_create-btn {
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.meeting_create-btn:hover {
+  background-color: #2563eb;
+  transform: scale(1.05);
+}
+
+.meeting_create-btn:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.meeting_create-btn .icon {
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+
+.meeting_spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 16rem;
+}
+
+.meeting_spinner {
+  font-size: 2rem;
+  color: #3b82f6;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.meeting_table-wrapper {
+  overflow-x: auto;
+}
+
+.meeting_table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.table thead tr {
+  background-color: #e5e7eb;
+  color: #4b5563;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.meeting_table th,
+.meeting_table td {
+  padding: 0.75rem 1.5rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.meeting_table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.meeting_table tbody tr:hover {
+  background-color: #f3f4f6;
+}
+
+
+.meeting_actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.meeting_actions button {
+  width: 1rem;
+  margin-right: 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.meeting_actions button:hover {
+  transform: scale(1.1);
+}
+
+.meeting_edit-btn:hover {
+  color: #8b5cf6;
+}
+
+.meeting_delete-btn:hover {
+  color: #ef4444;
+}
+
+.meeting_view-btn:hover {
+  color: #3b82f6;
+}

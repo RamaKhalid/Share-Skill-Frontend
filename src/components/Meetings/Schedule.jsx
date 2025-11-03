@@ -1,46 +1,107 @@
 import React from 'react'
-import './Schedule.scss'
+import './Schedule.css'
+import { FaEdit, FaTrash, FaEye, FaPlus } from "react-icons/fa";
+import { CgSpinner } from "react-icons/cg";
+import {  useState } from 'react'
+import MeetingForm from './MeetingForm';
 
+// sorce code for the table: https://purecode.ai/discover/html/table
 
-function Schedule({meetingsList}) {
+function Schedule({user, meetingsList, userData, onClose}) {
+  console.log(meetingsList);
+  const [showForm, setShowForm] =useState(false)
+  const [meetings, setMeetings] =useState(false)
+
+  function handleClick(e) {
+        e.preventDefault()
+            setShowForm(true)
+     }
+
+     async function handleSubmit() {
+      e.preventDefault()
+
+        try {        
+            const response = await axios.post(`http://127.0.0.1:8000/ss/meetings/${user.user_id}`, meeting)
+            console.log(response.data)
+            setMeetings(response.data)
+        } catch (err) {
+          if (err.response) {
+                console.error( err.response.data);
+            } else {
+                console.error( err.message);
+            }
+            }
+        }
+      
+     
+
+      function handleChange(e) {
+        setMeetings({...meetings, [e.target.name]: e.target.value})
+    }
+  
   return (
     <div>
-      
+<div className="meeting_container">
+  <div className="meeting_card">
+  <h1 className="meeting_page_title">Your Meetings:</h1>
 
-        <section class="wrapper">
-   
-    <main class="row title">
-      <ul>
-        <li>Date</li>
-        <li>Starting Time</li>
-        <li>Ending Time</li>
-        <li>With</li>
-        <li>Done</li>
-      </ul>
-    </main>
-    <section class="row-fadeIn-wrapper">
-      <article class="row fadeIn nfl">
-          {meetingsList.length
-          ?
-          meetingsList.map(meeting=>{
-            return(
-              <ul>
-              <li>{meeting.date}</li>
-              <li>{meeting.starting_time}</li>
-              <li>{meeting.end_time}</li>
-              <li>{meeting.is_complete? 'Done': "Not Done Yet!"}</li>
-              </ul>
-            )
-          })
-          :
-          <h1>No Meetings</h1>
-          }
-        <ul class="more-content">
-          <li>This 1665-player contest boasts a $300,000.00 prize pool and pays out the top 300 finishing positions. First place wins $100,000.00. Good luck!</li>
-        </ul>
-      </article>
-    </section>
-    </section>
+    <div className="meeting_toolbar">
+      {showForm && <MeetingForm  user={user} userData={userData} onClose= {()=>setShowForm(false)}/>}
+      <button onClick={handleClick} className="create-btn">
+      {/* <button className="create-btn"> */}
+        <FaPlus className="icon" /> Create New Meeting
+      </button>
+    </div>
+
+    {meetingsList.length ? (
+      <div className="meeting_table-wrapper">
+            <form  onSubmit={handleSubmit}>
+        <table className="meeting_table">
+          <thead>
+            <tr>    
+              <th>Date</th><th>Starting Time</th><th>Ending Time</th><th>Done</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {meetingsList.map((meeting) => (
+              <tr key={meeting.id}>
+                <td><span><input name='date' value={meeting.date} onChange={handleChange}/></span></td>
+                <td><span><input name='starting_time' value={meeting.starting_time} onChange={handleChange}/></span></td>
+                <td><span><input name='end_time' value={meeting.end_time} onChange={handleChange}/></span></td>
+                <td><span><input name='is_complete' value={meeting.is_complete? 'Done': "Not Done Yet!"} onChange={handleChange}/></span></td>
+                <td>
+                  <div className="meeting_actions">
+                    <button type='submit' className="meeting_edit-btn" ><FaEdit /></button>
+                    <button className="meeting_delete-btn"><FaTrash /></button>
+                    <button className="meeting_view-btn"><FaEye /></button>
+                  </div>
+                </td>
+
+              </tr>
+            ))}
+          </tbody>
+        </table>
+            </form>
+      </div>
+    ):
+    (
+      <div className="meeting_spinner-container">
+        <CgSpinner className="meeting_spinner" />
+      </div>
+    ) 
+    }
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
     </div>
   )
 }

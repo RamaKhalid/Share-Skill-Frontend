@@ -11,14 +11,14 @@ function MeetingForm({user,onClose}) {
         starting_time: '',
         end_time: '',
         is_complete: false,
-        users:user.user_id
+        user:user.user_id
 
     })
         async function handleSubmit(e){
         e.preventDefault()
 
         try {        
-            const response = await axios.post(`http://127.0.0.1:8000/ss/meetings/`, meeting)
+            const response = await axios.post(`http://127.0.0.1:8000/ss/meetings/${user.user_id}`, meeting)
             console.log(response.data)
             setMeesting(response.data)
             onClose()
