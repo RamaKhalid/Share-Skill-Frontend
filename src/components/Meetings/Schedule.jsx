@@ -4,12 +4,16 @@ import { FaEdit, FaTrash, FaEye, FaPlus } from "react-icons/fa";
 import { CgSpinner } from "react-icons/cg";
 import {  useState } from 'react'
 import MeetingForm from './MeetingForm';
+import axios from 'axios'
+import DeleteMeeting from './DeleteMeeting';
+
 
 // sorce code for the table: https://purecode.ai/discover/html/table
 
 function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
   console.log(meetingsList);
   const [showForm, setShowForm] =useState(false)
+  const [showDelete, setShowDelete] =useState(false)
   const [meetingId, setMeetingId] = useState('')
   const [meetings, setMeetings] =useState({
         date: null,
@@ -21,7 +25,7 @@ function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
   
 
   function handleClick(e) {
-        e.preventDefault()
+      e.preventDefault()
             setShowForm(true)
      }
 
@@ -29,7 +33,7 @@ function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
       e.preventDefault()
       console.log(e)
         try {        
-            const response = await axios.put(`http://127.0.0.1:8000/ss/meetings/${meetingId}`, meetings)
+            const response = await axios.put(`http://127.0.0.1:8000/ss/meeting/${meetingId}/`, meetings)
             console.log(response.data)
             setMeetings(response.data)
         } catch (err) {
@@ -40,15 +44,31 @@ function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
             }
             }
         }
+        function handleDelete(e,id) {
+          setMeetingId(id)
+          setShowDelete(true)
+        }
+
+        // async function handleDelete(e, id ) {
+          
+        //     try {        
+        //     const response = await axios.delete(`http://127.0.0.1:8000/ss/meeting/${id}/`)
+        //     window.location.reload();
+        // } catch (err) {
+        //   if (err.response) {
+        //         console.error( err.response.data);
+        //     } else {
+        //         console.error( err.message);
+        //     }
+        //     }
+        // }
+        
       
      
 
       function handleChange(e) {
-        console.log(Object.keys(meetingsList[0]));
-
-        
+        console.log(Object.keys(meetingsList));
           setMeestingList({...meetingsList, [e.target.name]: e.target.value})
-        
         
         setMeetingId(e.target.id)
         // setMeetings(meetingsList)
@@ -63,8 +83,9 @@ function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
   <h1 className="meeting_page_title">Your Meetings:</h1>
 
     <div className="meeting_toolbar">
+      {showDelete && <DeleteMeeting  user={user}  meetingId={meetingId} onClose= {()=>setShowDelete(false)}/>}
       {showForm && <MeetingForm  user={user} userData={userData} onClose= {()=>setShowForm(false)}/>}
-      <button onClick={handleClick} className="create-btn">
+      <button onClick={handleClick}  className="create-btn">
       {/* <button className="create-btn"> */}
         <FaPlus className="icon" /> Create New Meeting
       </button>
@@ -89,10 +110,8 @@ function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
                 
                 <td>
                   <div className="meeting_actions">
-                    <input type='hidden' name='id' value={meeting.id}/>
-                    <button type='submit' className="meeting_edit-btn" ><FaEdit /></button>
-                    <button className="meeting_delete-btn"><FaTrash /></button>
-                    <button className="meeting_view-btn"><FaEye /></button>
+                    <button type='submit'className="meeting_edit-btn" ><FaEdit /></button>
+                    <button type='button'name='delete' value={meeting.id} onClick={(e)=>{handleDelete(e, meeting.id)}} className="meeting_delete-btn"><FaTrash /></button>
                   </div>
                 </td>
 
