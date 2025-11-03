@@ -13,6 +13,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/style": "^0.8.0",
     "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.3.4",
     "@schedule-x/calendar": "^3.3.0",
     "@schedule-x/drag-and-drop": "^3.3.0",

@@ -3,6 +3,10 @@ import axios from 'axios'
 import SkillForm from './SkillForm';
 import {useState } from 'react'
 import ConfirmAdd from './ConfirmAdd';
+import Alert from '../Alert/AlertMessage';
+import AlertMessage from '../Alert/AlertMessage';
+// import Alert from '@mui/material/Alert';
+
 
 
 function SkillList({profileInfo, setProfileInfo, user }) {
@@ -14,6 +18,8 @@ function SkillList({profileInfo, setProfileInfo, user }) {
         id: ' '
     })
     const [errors, setErrors] = useState(null)
+    const [success, setSuccess] = useState(null)
+    
     
 
     console.log(profileInfo);    
@@ -25,6 +31,9 @@ function SkillList({profileInfo, setProfileInfo, user }) {
                 const response = await axios.patch(`http://127.0.0.1:8000/ss/profile/${profileInfo.user}/associate-skill/${skillId}/`,{'role':role})
                 console.log(response.data.skills_user_does_not_have)
                 console.log(response.data.skills_user_does_have)
+                if (response.data){
+                    setSuccess('Your Data is Updated Successfully')
+                }
                 setProfileInfo({
                     ...profileInfo,
                      skills_user_teach: response.data.skills_user_teach,
@@ -47,14 +56,23 @@ function SkillList({profileInfo, setProfileInfo, user }) {
     }
 
     async function desocciateSkill(skillId) {
+        try {
         const response = await axios.patch(`http://127.0.0.1:8000/ss/profile/${profileInfo.user}/dissociate-skill/${skillId}/`)
         console.log(response.data)
+        if (response.data){
+            setSuccess('Your Data is Updated Successfully')
+
+        }
         setProfileInfo({
             ...profileInfo,
             skills_user_teach: response.data.skills_user_teach,
             skills_user_learn: response.data.skills_user_learn,
             skills_user_does_not_have: response.data.skills_user_does_not_have
         })
+        } catch (error) {
+            console.log(error)
+            setErrors(error.response.data.error)
+        }
     }
 
     function handleClick(e) {
@@ -76,6 +94,8 @@ function SkillList({profileInfo, setProfileInfo, user }) {
 
   return (
     <div>
+        {success?<AlertMessage severity_name="success" message={success}/> : '' }
+        {errors?< AlertMessage severity_name="error" message={errors}/> : '' }
         <h3>Skill You Teach:</h3>
             {
                 profileInfo.skills_user_teach
@@ -93,7 +113,7 @@ function SkillList({profileInfo, setProfileInfo, user }) {
                                     )
                                 })
                                 :
-                                <li>No Skill 😢</li>
+                                <li>No Skill Yet</li>
                         }
                     </ul>
                     :
@@ -119,7 +139,7 @@ function SkillList({profileInfo, setProfileInfo, user }) {
                                     )
                                 })
                                 :
-                                <li>No Skill 😢</li>
+                                <li>No Skill Yet</li>
                         }
                     </ul>
                     :
@@ -152,7 +172,7 @@ function SkillList({profileInfo, setProfileInfo, user }) {
                                     )
                                 })
                                 :
-                                <li>No Skills 😢</li>
+                                <li>No Skills Yet</li>
                         }
                     </ul>
                     :
