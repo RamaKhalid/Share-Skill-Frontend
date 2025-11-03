@@ -7,21 +7,29 @@ import MeetingForm from './MeetingForm';
 
 // sorce code for the table: https://purecode.ai/discover/html/table
 
-function Schedule({user, meetingsList, userData, onClose}) {
+function Schedule({user, meetingsList,setMeestingList, userData, onClose}) {
   console.log(meetingsList);
   const [showForm, setShowForm] =useState(false)
-  const [meetings, setMeetings] =useState(false)
+  const [meetingId, setMeetingId] = useState('')
+  const [meetings, setMeetings] =useState({
+        date: null,
+        starting_time: null,
+        end_time: null,
+        is_complete: false,
+        user:user.user_id
+  })
+  
 
   function handleClick(e) {
         e.preventDefault()
             setShowForm(true)
      }
 
-     async function handleSubmit() {
+     async function handleSubmit(e) {
       e.preventDefault()
-
+      console.log(e)
         try {        
-            const response = await axios.post(`http://127.0.0.1:8000/ss/meetings/${user.user_id}`, meeting)
+            const response = await axios.put(`http://127.0.0.1:8000/ss/meetings/${meetingId}`, meetings)
             console.log(response.data)
             setMeetings(response.data)
         } catch (err) {
@@ -36,7 +44,16 @@ function Schedule({user, meetingsList, userData, onClose}) {
      
 
       function handleChange(e) {
-        setMeetings({...meetings, [e.target.name]: e.target.value})
+        console.log(Object.keys(meetingsList[0]));
+
+        
+          setMeestingList({...meetingsList, [e.target.name]: e.target.value})
+        
+        
+        setMeetingId(e.target.id)
+        // setMeetings(meetingsList)
+        
+        
     }
   
   return (
@@ -55,7 +72,7 @@ function Schedule({user, meetingsList, userData, onClose}) {
 
     {meetingsList.length ? (
       <div className="meeting_table-wrapper">
-            <form  onSubmit={handleSubmit}>
+        <form  onSubmit={handleSubmit}>
         <table className="meeting_table">
           <thead>
             <tr>    
@@ -64,13 +81,15 @@ function Schedule({user, meetingsList, userData, onClose}) {
           </thead>
           <tbody>
             {meetingsList.map((meeting) => (
-              <tr key={meeting.id}>
-                <td><span><input name='date' value={meeting.date} onChange={handleChange}/></span></td>
-                <td><span><input name='starting_time' value={meeting.starting_time} onChange={handleChange}/></span></td>
-                <td><span><input name='end_time' value={meeting.end_time} onChange={handleChange}/></span></td>
-                <td><span><input name='is_complete' value={meeting.is_complete? 'Done': "Not Done Yet!"} onChange={handleChange}/></span></td>
+              <tr key={`MET${meeting.id}`}>
+                <td><span><input type='date' id={meeting.id} name='date' value={meeting.date} onChange={handleChange} required/></span></td>
+                <td><span><input type='time' id={meeting.id} name='starting_time' value={meeting.starting_time} onChange={handleChange} required/></span></td>
+                <td><span><input type='time'id={meeting.id} name='end_time' value={meeting.end_time} onChange={handleChange} required/></span></td>
+                <td><span><input name='is_complete' id={meeting.id} value={meeting.is_complete? 'Done': "Not Done Yet!"} onChange={handleChange}/></span></td>
+                
                 <td>
                   <div className="meeting_actions">
+                    <input type='hidden' name='id' value={meeting.id}/>
                     <button type='submit' className="meeting_edit-btn" ><FaEdit /></button>
                     <button className="meeting_delete-btn"><FaTrash /></button>
                     <button className="meeting_view-btn"><FaEye /></button>

@@ -50,7 +50,7 @@ const [showForm, setShowForm] =useState(false)
     <div>
         {showForm && <MeetingForm  user={user} userData={userData} onClose= {()=>setShowForm(false)}/>}
         <button onClick={handleClick} >Add meeting</button>
-        <Schedule user= {user} meetingsList= {meetingsList} userData={userData} onClose= {()=>setShowForm(false)}/>
+        <Schedule user= {user} setMeestingList={setMeestingList} meetingsList= {meetingsList} userData={userData} onClose= {()=>setShowForm(false)}/>
     </div>
   )
 }
