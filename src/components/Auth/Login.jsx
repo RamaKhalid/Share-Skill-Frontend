@@ -4,10 +4,11 @@ import axios from "axios"
 import { saveTokens, getUserFromToken } from "../../lib/auth"
 import { useNavigate } from "react-router"
 import Alert from '@mui/material/Alert';
+import AlertMessage from "../Alert/AlertMessage";
 
 
 
-export default function Login({ setUser }) {
+export default function Login({user, setUser }) {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -31,7 +32,8 @@ export default function Login({ setUser }) {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
-          {error?<Alert severity="error">{error}</Alert> : '' }
+          {error?< AlertMessage severity_name="error" message={error}/> : '' }
+          {user?'':< AlertMessage severity_name="error" message="You Are Unauthorized, Please Log In First"/>  }
       <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} required/>
       <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} required/>
       <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required/>

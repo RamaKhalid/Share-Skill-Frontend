@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import axios from 'axios'
+import AlertMessage from '../Alert/AlertMessage'
 
 
 function SkillForm({onClose, userId}) {
@@ -10,24 +11,31 @@ function SkillForm({onClose, userId}) {
         role : 'Teach'
     })
 
+    const [errors, setErrors] = useState(null)
+
 
     async function handleSubmit(e){
-        // e.preventDefault()
+        e.preventDefault()
         console.log(userId);
         try {        
           console.log(skill.role);
-          
-            response = await axios.post(`http://127.0.0.1:8000/ss/skills/${userId}`, skill)
+            const response = await axios.post(`http://127.0.0.1:8000/ss/skills/${userId}`, skill)
             console.log(response.data)
             setSkill(response.data)
-            setShowModel(false)
+            onClose()
           
         } catch (err) {
           if (err.response && err.response.status === 400) {
-          alert('Skill alrady exist')
+          setErrors('Skill alrady exist')
           }
-          console.error(err.response)
-          console.log(err.response)
+          if (err.response) {
+                console.error( err.response.data.non_field_errors[0]);
+                if (err.response.data.non_field_errors[0] =='fields type, name must make a unique set'){
+                  setErrors('Skill alrady exist')
+                }
+            } else {
+                console.error( err.message);
+            }
             }
         }
         
@@ -46,6 +54,7 @@ function SkillForm({onClose, userId}) {
     <div>
         <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
         <div className='innerFormModelContener'>
+      {errors?< AlertMessage severity_name="error" message={errors}/> : '' }
             <h1>Add New Skill</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="type"> Type: </label>

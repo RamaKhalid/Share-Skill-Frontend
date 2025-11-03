@@ -11,6 +11,7 @@ import Certificates from './components/Certificates/Certificates';
 import ExperiencesList from './components/Experiences/ExperiencesList';
 import Meetings from './components/Meetings/Meetings';
 import MatchedPage from './components/Match/MatchedPage';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
 
 
 
@@ -26,14 +27,14 @@ function App() {
       {/* <NavBar user={user} setUser={setUser} setSkillId= {setSkillId} setSearchData={ setSearchData}/> */}
       <NavBar user={user} setUser={setUser}/>
       <Routes>
-        <Route path='/login' element={<Login setUser={setUser}/>}/>
+        <Route path='/login' element={ <Login user={user} setUser={setUser}/>}/>
         <Route path='/signup' element={<SignUp />}/>
-        <Route path='/home' element={<HomePage user={user}  />}/>
-        <Route path='/profile' element={<Profile user={user} />}/>
-        <Route path='/certificates' element={<Certificates user={user} />}/>
-        <Route path='/experiences' element={<ExperiencesList user={user} />}/>
-        <Route path='/meeting' element={<Meetings user={user} />}/>
-        <Route path='/match' element={<MatchedPage user={user} />}/>
+        <Route path='/home' element={ <ProtectedRoute><HomePage user={user}  /> </ProtectedRoute> }/>
+        <Route path='/profile' element={<ProtectedRoute><Profile user={user} /> </ProtectedRoute> }/>
+        <Route path='/certificates' element={<ProtectedRoute><Certificates user={user} /></ProtectedRoute>}/>
+        <Route path='/experiences' element={<ProtectedRoute><ExperiencesList user={user} /></ProtectedRoute>}/>
+        <Route path='/meeting' element={<ProtectedRoute><Meetings user={user} /></ProtectedRoute>}/>
+        <Route path='/match' element={<ProtectedRoute><MatchedPage user={user} /></ProtectedRoute>}/>
         
       </Routes>
     </Router>
