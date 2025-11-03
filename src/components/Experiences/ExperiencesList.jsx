@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 import FormExperiences from './FormExperiences'
 import DeleteExperiences from './DeleteExperiences'
 
@@ -11,7 +11,9 @@ function ExperiencesList({user}) {
     const [showDelete, setShowDelete] =useState(false)
 
     async function getAllExperience() {
-        const response = await axios.get(`http://127.0.0.1:8000/ss/profile/${user.user_id}/experience/`)
+        const response = await authRequest(
+                            {method:'get',
+                             url: `http://127.0.0.1:8000/ss/profile/${user.user_id}/experience/`})
         console.log(response.data)
         console.log(response.error);
         

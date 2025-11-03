@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import axios from 'axios'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 import AlertMessage from '../Alert/AlertMessage'
 
 
@@ -19,7 +19,10 @@ function SkillForm({onClose, userId}) {
         console.log(userId);
         try {        
           console.log(skill.role);
-            const response = await axios.post(`http://127.0.0.1:8000/ss/skills/${userId}`, skill)
+            const response = await authRequest(
+                                      {data:skill,
+                                        method:'post',
+                                       url:`http://127.0.0.1:8000/ss/skills/${userId}`})
             console.log(response.data)
             setSkill(response.data)
             onClose()

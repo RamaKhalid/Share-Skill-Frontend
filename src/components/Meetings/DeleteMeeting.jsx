@@ -1,5 +1,6 @@
 import { useRef } from 'react'
-import axios from 'axios'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
+
 
 
 function DeleteMeeting({user, meetingId, onClose }) {
@@ -12,7 +13,9 @@ function DeleteMeeting({user, meetingId, onClose }) {
     }    
     async function handleDelete(e, id ) {
         try {        
-                const response = await axios.delete(`http://127.0.0.1:8000/ss/meeting/${meetingId}/`)
+                const response = await authRequest(
+                            {method:'delete',
+                             url:`http://127.0.0.1:8000/ss/meeting/${meetingId}/`})
                 window.location.reload();
                 onClose()
             } catch (err) {

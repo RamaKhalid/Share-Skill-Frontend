@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 
 import Schedule from './Schedule'
 import MeetingForm from './MeetingForm'
@@ -22,7 +22,9 @@ const [showForm, setShowForm] =useState(false)
 
     async function gettMeeting() {
          try {        
-            const response = await axios.get(`http://127.0.0.1:8000/ss/meetings/${user.user_id}`)
+            const response = await authRequest(
+                            {method:'get',
+                             url:`http://127.0.0.1:8000/ss/meetings/${user.user_id}`})
             console.log(response.data)
             setMeestingList(response.data.meeting)
             setuserData(response.data.user_data)

@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
-import axios from 'axios'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
+
 
 
 
@@ -23,11 +24,17 @@ function FormCertificate({user, certificate, setShowModel, onClose}) {
         try {
           let response = {}
           if (certificate.length){
-            response = await axios.put(`http://127.0.0.1:8000/ss/profile/certificate/${certificate[0].id}/`, certificateData)
+            response = await authRequest(
+                            {data: certificateData,
+                             method:'put',
+                             url: `http://127.0.0.1:8000/ss/profile/certificate/${certificate[0].id}/`})
           }else{
             console.log('poooosssttt');
             
-            response = await axios.post(`http://127.0.0.1:8000/ss/profile/${user.user_id}/certificate/`, certificateData)
+            response = await authRequest(
+                            {data: certificateData,
+                             method:'post',
+                             url:`http://127.0.0.1:8000/ss/profile/${user.user_id}/certificate/`})
 
           }
             console.log(response.data)

@@ -1,5 +1,6 @@
 import { useRef } from 'react'
-import axios from 'axios'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
+
 
 
 function DeleteCertificates({user, certificate, setShowModel, onClose}) {
@@ -15,7 +16,9 @@ function DeleteCertificates({user, certificate, setShowModel, onClose}) {
     
     async function handleDelete(e) {
         try {
-            const response = await axios.delete(`http://127.0.0.1:8000/ss/profile/certificate/${certificate[0].id}/`)
+            const response = await authRequest(
+                            {method:'delete',
+                             url: `http://127.0.0.1:8000/ss/profile/certificate/${certificate[0].id}/`})
             // console.log(response.data)
             // setCertificate(response.data)
             window.location.reload();

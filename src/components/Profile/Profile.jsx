@@ -1,5 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
+
 import axios from 'axios'
 import SkillList from './SkillList'
 import Alert from '@mui/material/Alert';
@@ -29,7 +31,9 @@ function Profile({user}) {
 
     async function getUserProfile() {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/ss/profile/${user.user_id}`)
+            const response = await authRequest(
+                {method:'get',
+                 url: `http://127.0.0.1:8000/ss/profile/${user.user_id}`})
             console.log(response.data)
             setUserInfo(response.data.user)
             setProfileInfo(response.data.profile)
@@ -67,8 +71,14 @@ function Profile({user}) {
         e.preventDefault()
     try {
         console.log(profileInfo);
-        const profile = await axios.put(`http://127.0.0.1:8000/ss/profile/${user.user_id}/`,profileInfo)
-        const User = await axios.put(`http://127.0.0.1:8000/ss/user/${user.user_id}/`,userInfo)
+        const profile = await authRequest(
+                {data: profileInfo, 
+                 method:'put',
+                 url:`http://127.0.0.1:8000/ss/profile/${user.user_id}/`})
+        const User = await authRequest(
+                {data: userInfo,
+                 method:'put',
+                 url:`http://127.0.0.1:8000/ss/user/${user.user_id}/`})
         if(profile && user){
             setSuccess('Your Data is Updated Successfully')
 

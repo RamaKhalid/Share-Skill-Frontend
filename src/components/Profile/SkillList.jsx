@@ -3,8 +3,9 @@ import axios from 'axios'
 import SkillForm from './SkillForm';
 import {useState } from 'react'
 import ConfirmAdd from './ConfirmAdd';
-import Alert from '../Alert/AlertMessage';
 import AlertMessage from '../Alert/AlertMessage';
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
+
 // import Alert from '@mui/material/Alert';
 
 
@@ -28,7 +29,10 @@ function SkillList({profileInfo, setProfileInfo, user }) {
             if(role){
                 console.log(`post: ${role}`);
                 
-                const response = await axios.patch(`http://127.0.0.1:8000/ss/profile/${profileInfo.user}/associate-skill/${skillId}/`,{'role':role})
+                const response = await authRequest(
+                                {data: {'role':role}, 
+                                 method:'patch',
+                                 url:`http://127.0.0.1:8000/ss/profile/${profileInfo.user}/associate-skill/${skillId}/`})
                 console.log(response.data.skills_user_does_not_have)
                 console.log(response.data.skills_user_does_have)
                 if (response.data){
@@ -57,7 +61,9 @@ function SkillList({profileInfo, setProfileInfo, user }) {
 
     async function desocciateSkill(skillId) {
         try {
-        const response = await axios.patch(`http://127.0.0.1:8000/ss/profile/${profileInfo.user}/dissociate-skill/${skillId}/`)
+        const response = await authRequest(
+                                {method:'patch',
+                                 url:`http://127.0.0.1:8000/ss/profile/${profileInfo.user}/dissociate-skill/${skillId}/`})
         console.log(response.data)
         if (response.data){
             setSuccess('Your Data is Updated Successfully')
@@ -86,9 +92,6 @@ function SkillList({profileInfo, setProfileInfo, user }) {
          setSkillData( {...skillData, name: e.target.name, id: e.target.id})
         setShowConfirm(true)
         console.log(e.target.name);
-        
-        // associateSkill(skill.id)
-        
      }
 
 

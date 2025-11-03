@@ -1,6 +1,7 @@
 import React from 'react'
 import { useRef, useState } from 'react'
-import axios from 'axios'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
+
 
 
 function MeetingForm({user,meetings, meetingId ,onClose}) {
@@ -22,10 +23,16 @@ function MeetingForm({user,meetings, meetingId ,onClose}) {
         let response= {}
         try {        
           if(meetingId){
-            response = await axios.put(`http://127.0.0.1:8000/ss/meeting/${meetingId}/`, meeting)
+            response = await authRequest(
+                            {data: meeting,
+                             method:'put',
+                             url:`http://127.0.0.1:8000/ss/meeting/${meetingId}/`})
           }
           else{
-            response = await axios.post(`http://127.0.0.1:8000/ss/meetings/${user.user_id}`, meeting)
+            response = await authRequest(
+                            {data: meeting,
+                             method:'put',
+                             url:`http://127.0.0.1:8000/ss/meetings/${user.user_id}`})
 
           }
             console.log(response.data)

@@ -14,26 +14,20 @@ function HomePage({user}) {
     const [users, setUSers] = useState([])
     const [profileList, setProfileList] = useState([])
     const [show, setSow]= useState(true)
-    const [userSearch , setUserSearch] = useState([])
-   
-    
     const[skillID, setSkillId] = useState('')
 
-    // console.log(searchData);
+
     
-     async function getAllUSer() {
+    async function getAllUSer() {
         const response = await authRequest({method:'get', url: 'http://127.0.0.1:8000/ss/home/'})
         console.log(response.data)
         setUSers(response.data.user)
         setProfileList(response.data.profile)
     }
+    
     useEffect(() => {
         getAllUSer()
     }, [])
-
-    // const filterUser = users.filter(user=>{
-    //     return user
-    // })
 
     function getLevels(userID){
        const userProfile = profileList.find(profile=> profile.user === userID)

@@ -1,7 +1,8 @@
 // source :https://www.youtube.com/watch?v=sWVgMcz8Q44&t=37s
 import { useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import axios from 'axios'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
+
 
 
 import "./SearchBar.css";
@@ -13,7 +14,9 @@ export const SearchBar = ({setSkillId, onTrigger, user}) => {
 //   const[skillID, setSkillId] = useState('')
 
   async function getSkills(event) {
-        const response = await axios.get(`http://127.0.0.1:8000/ss/skills/${user.user_id}`)
+        const response = await authRequest(
+                            {method:'get',
+                             url: `http://127.0.0.1:8000/ss/skills/${user.user_id}`})
         event = event.toLowerCase()
         console.log(response.data)
         const results = response.data.filter((result)=>{

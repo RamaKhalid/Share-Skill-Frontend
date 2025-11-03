@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
+
 
 function MatchForm({onClose, user, profileInfo}) {
     const modelRef = useRef()
@@ -18,8 +20,11 @@ function MatchForm({onClose, user, profileInfo}) {
         console.log(userId);
         try {        
           console.log(skill.role);
-          
-            response = await axios.post(`http://127.0.0.1:8000/ss/skills/${userId}`, skill)
+                                     
+            response =await authRequest(
+                                      {data:skill,
+                                        method:'post',
+                                       url:`http://127.0.0.1:8000/ss/skills/${userId}`})
             console.log(response.data)
             setSkill(response.data)
             setShowModel(false)
@@ -36,7 +41,9 @@ function MatchForm({onClose, user, profileInfo}) {
     async function getMatchAny(e){
         e.preventDefault()
         try {       
-            const response = await axios.get(`http://127.0.0.1:8000/ss/match/${user.user_id}`)
+            const response = await authRequest(
+                            {method:'get',
+                             url: `http://127.0.0.1:8000/ss/match/${user.user_id}`})
             console.log(response.data)
             setMatchedSkill(response.data)
             onClose

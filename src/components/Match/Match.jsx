@@ -1,6 +1,8 @@
 import {useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import MatchForm from './MatchForm'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
+
 
 function Match({user}) {
 const [showForm, setShowForm] =useState(false)
@@ -19,7 +21,9 @@ const [showForm, setShowForm] =useState(false)
     const [errors, setErrors] = useState(null)
 async function getUserProfile() {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/ss/profile/${user.user_id}`)
+            const response = await authRequest(
+                            {method:'get',
+                             url: `http://127.0.0.1:8000/ss/profile/${user.user_id}`})
             console.log(response.data)
             setProfileInfo(response.data.profile)
         } catch (error) {

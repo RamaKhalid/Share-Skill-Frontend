@@ -1,7 +1,7 @@
 import React from 'react'
 import "./CertificatesStyle.css"
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 import FormCertificate from './FormCertificate'
 import DeleteCertificates from './DeleteCertificates'
 
@@ -15,7 +15,9 @@ function Certificates({user}) {
 console.log(user.user_id);
 
     async function getAllCertificates() {
-        const response = await axios.get(`http://127.0.0.1:8000/ss/profile/${user.user_id}/certificate/`)
+        const response =await authRequest(
+                            {method:'get',
+                             url: `http://127.0.0.1:8000/ss/profile/${user.user_id}/certificate/`})
         console.log(response.data)
         console.log(response.error);
         

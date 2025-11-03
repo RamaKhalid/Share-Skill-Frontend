@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
-import axios from 'axios'
+import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
+
 
 function FormExperiences({user, experience, setShowModel, onClose }) {
   const [experienceData, setExperienceData]= useState({
@@ -15,9 +16,15 @@ function FormExperiences({user, experience, setShowModel, onClose }) {
         try {
           let response = {}
           if (experience.length){
-            response = await axios.put(`http://127.0.0.1:8000/ss/profile/experience/${experience[0].id}/`, experienceData)
+            response = await authRequest(
+                            {data: experienceData,
+                             method:'put',
+                             url:`http://127.0.0.1:8000/ss/profile/experience/${experience[0].id}/`})
           }else{
-            response = await axios.post(`http://127.0.0.1:8000/ss/profile/${user.user_id}/experience/`, experienceData)
+            response = await authRequest(
+                            {data: experienceData,
+                             method:'post',
+                             url:`http://127.0.0.1:8000/ss/profile/${user.user_id}/experience/`})
           }
             console.log(response.data)
             setExperienceData(response.data)
