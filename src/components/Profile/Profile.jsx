@@ -2,6 +2,8 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import SkillList from './SkillList'
+import Alert from '@mui/material/Alert';
+
 
 function Profile({user}) {
     const [userInfo, setUserInfo] = useState({
@@ -22,6 +24,8 @@ function Profile({user}) {
     })
     
     const [errors, setErrors] = useState(null)
+    const [success, setSuccess] = useState(null)
+    
 
     async function getUserProfile() {
         try {
@@ -63,8 +67,12 @@ function Profile({user}) {
         e.preventDefault()
     try {
         console.log(profileInfo);
-        await axios.put(`http://127.0.0.1:8000/ss/profile/${user.user_id}/`,profileInfo)
-        await axios.put(`http://127.0.0.1:8000/ss/user/${user.user_id}/`,userInfo)
+        const profile = await axios.put(`http://127.0.0.1:8000/ss/profile/${user.user_id}/`,profileInfo)
+        const User = await axios.put(`http://127.0.0.1:8000/ss/user/${user.user_id}/`,userInfo)
+        if(profile && user){
+            setSuccess('Your Data is Updated Successfully')
+
+        }
     } catch (err) {
       console.error(err)
       console.log(err.response.data)
@@ -83,6 +91,7 @@ function handleUserChange(e) {
    
     return (
     <div>
+    {success?<Alert severity="success">{success}</Alert> : '' }
         <h1>Welcom {userInfo.first_name} {userInfo.last_name} </h1>
          <form onSubmit={handleSubmit}>
             <label htmlFor="username">Username: </label>
@@ -94,8 +103,8 @@ function handleUserChange(e) {
             <label htmlFor="last_name">Last Name: </label>
             <input value={userInfo.last_name} name='last_name' onChange={handleUserChange} />
 
-            <label htmlFor="birth_date"> Age:  </label>
-            <input placeholder={age()} name='birth_date' readOnly/>
+            <label htmlFor="birth_date"> Birth Date:  </label>
+            <input value={userInfo.birth_date} type='date' name='birth_date' onChange={handleUserChange} />
 
             <label htmlFor="level" >Level: </label>
             <select value={profileInfo.level} onChange={handleProfilChange} name='level' >
@@ -105,7 +114,7 @@ function handleUserChange(e) {
             </select>
 
             <label htmlFor="phone"  >Phone number: </label>
-            <input type='phone' name='phone' value={profileInfo.phone} onChange={handleProfilChange}/>
+            <input type='phone'  pattern="[0][5][0-9]{8}" name='phone' value={profileInfo.phone} onChange={handleProfilChange}/>
 
             <label htmlFor="email">Email: </label>
             <input type='email' value={userInfo.email} name='email' onChange={handleUserChange} />

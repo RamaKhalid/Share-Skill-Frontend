@@ -10,9 +10,6 @@ export default function SignUp() {
   const [last_name, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [birth_date, setBirthDate] = useState('')
-  const [level, setLevel] = useState('')
-  const [phone, setPhone] = useState('')
   const [error, setError]= useState(null)
   const [pass, setPass]= useState(false)
  
@@ -24,7 +21,7 @@ export default function SignUp() {
     try {
       if (pass){
         const response= await axios.post('http://127.0.0.1:8000/ss/signup/', { username, first_name, last_name, password, email, birth_date, level, phone })
-        navigate('/login/', { state: { data: response.data }})
+        navigate('/login/')
       }
      
       
@@ -63,13 +60,6 @@ export default function SignUp() {
       <input placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} required/>
       <input placeholder='First Name' value={first_name} onChange={e => setFirstName(e.target.value)} required/>
       <input placeholder='Last Name' value={last_name} onChange={e => setLastName(e.target.value)} required />
-      {/* <input type='date' value={birth_date} onChange={e => setBirthDate(e.target.value)} required/> */}
-      {/* <select value={level} onChange={e => setLevel(e.target.value)} > */}
-        {/* <option value="Beginner">Beginner</option> */}
-        {/* <option value="Intermediate">Intermediate</option>
-        <option value="Expert">Expert</option>
-      </select> */}
-      {/* <input type='text' pattern="[0][5][0-9]{8}" placeholder='phone: 05XXXXXXXX' value={phone} onChange={e => setPhone(e.target.value)} required/> */}
       <input type='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} required />
       <input type='password' placeholder='Password' value={password} onChange={(e)=>{handleChange(e)}}required />
       <button type='submit'>Sign Up</button>

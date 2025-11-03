@@ -32,7 +32,6 @@ export default function Login({ setUser }) {
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
           {error?<Alert severity="error">{error}</Alert> : '' }
-  
       <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} required/>
       <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} required/>
       <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required/>
