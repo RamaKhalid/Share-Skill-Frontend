@@ -12,13 +12,22 @@ const [showForm, setShowForm] =useState(false)
         starting_time: '',
         end_time: '',
         is_complete: false,
+        participant:'',
+
     })
-    const [userData, setuserData]= useState({
-        id: '',
-        email: '',
-        first_name: '',
-        last_name: '',
-    })
+    // const [userData, setuserData]= useState({
+    //     id: '',
+    //     email: '',
+    //     first_name: '',
+    //     last_name: '',
+    // })
+    // const [participantData, setParticipantData]= useState({
+    //     id: '',
+    //     email: '',
+    //     first_name: '',
+    //     last_name: '',
+    //     username:''
+    // })
 
     async function gettMeeting() {
          try {        
@@ -27,7 +36,8 @@ const [showForm, setShowForm] =useState(false)
                              url:`http://127.0.0.1:8000/ss/meetings/${user.user_id}`})
             console.log(response.data)
             setMeestingList(response.data.meeting)
-            setuserData(response.data.user_data)
+            // setuserData(response.data.user_data)
+            // setParticipantData(response.data.participant)
         } catch (err) {
           if (err.response) {
                 console.error( err.response.data);
@@ -50,9 +60,9 @@ const [showForm, setShowForm] =useState(false)
 
   return (
     <div>
-        {showForm && <MeetingForm  user={user} userData={userData} onClose= {()=>setShowForm(false)}/>}
+        {showForm && <MeetingForm  user={user}  onClose= {()=>setShowForm(false)}/>}
         <button onClick={handleClick} >Add meeting</button>
-        <Schedule user= {user} setMeestingList={setMeestingList} meetingsList= {meetingsList} userData={userData} onClose= {()=>setShowForm(false)}/>
+        <Schedule user= {user} setMeestingList={setMeestingList} meetingsList= {meetingsList}   onClose= {()=>setShowForm(false)}/>
     </div>
   )
 }

@@ -4,20 +4,21 @@ import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 
 
 
-function MeetingForm({user,meetings, meetingId ,onClose}) {
+function MeetingForm({user,meetings, meetingId,meetingsList, setMeestingList, setSuccess ,onClose}) {
      const modelRef = useRef()
-     console.log(meetings);
+     console.log(meetings)
      
 
     const [meeting, setMeesting]= useState({
-        date: meetings? meetings[0].date : '',
-        starting_time:  meetings? meetings[0].starting_time : '',
-        end_time:  meetings? meetings[0].end_time : '',
-        is_complete:meetings? meetings[0].is_complete : '',
-        user:user.user_id
+        date: meetings.length? meetings[0].date : '',
+        starting_time:  meetings.length? meetings[0].starting_time : '',
+        end_time:  meetings.length? meetings[0].end_time : '',
+        is_complete:meetings.length? meetings[0].is_complete : false,
+        participant_username:meetings.length? meetings[0].participant: '',
+        user:user.user_id,
 
     })
-        async function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault()
 
         let response= {}
@@ -27,12 +28,20 @@ function MeetingForm({user,meetings, meetingId ,onClose}) {
                             {data: meeting,
                              method:'put',
                              url:`http://127.0.0.1:8000/ss/meeting/${meetingId}/`})
+            if (response){
+              setSuccess('Your Meeting is Updated Successfully! ')
+              // setExperiencesList( response.data)
+            }
           }
           else{
             response = await authRequest(
                             {data: meeting,
-                             method:'put',
-                             url:`http://127.0.0.1:8000/ss/meetings/${user.user_id}`})
+                             method:'post',
+                             url:`http://127.0.0.1:8000/ss/meetings/${user.user_id}/`})
+            if (response){
+              setSuccess('Your Meeting is Added Successfully! ')
+              setMeestingList( response.data.meeting)
+            }
           }
             console.log(response.data)
             setMeesting(response.data)
@@ -60,7 +69,7 @@ function MeetingForm({user,meetings, meetingId ,onClose}) {
     <div>
         <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
         <div className='innerFormModelContener'>
-            <h1>{meetings? 'Edit your meeting':'Add New Meeting'}</h1>
+            <h1>{meetings.length? 'Edit your meeting':'Add New Meeting'}</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="date"> Date: </label>
             <input type='date' value={meeting.date} name='date' onChange={handleChange}required/>
@@ -70,6 +79,10 @@ function MeetingForm({user,meetings, meetingId ,onClose}) {
 
             <label htmlFor="end_time">End Time: </label>
             <input type='time' value={meeting.end_time} name='end_time' onChange={handleChange}required />
+
+            <label htmlFor="participant_username">participant: </label>
+            <input type='text' value={meeting.participant_username} name='participant_username' onChange={handleChange}required />
+
             
                 <button  type='submit'>Save</button>
                 <button onClick={onClose}>cancel</button>

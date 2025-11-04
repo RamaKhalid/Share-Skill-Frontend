@@ -155,7 +155,10 @@
 .meeting_actions button:hover {
   transform: scale(1.1);
 }
-
+.Done_Tabel{
+  background-color: #f3f4f6;
+color: #6b6868;
+}
 .meeting_edit-btn:hover {
   color: #8b5cf6;
 }
