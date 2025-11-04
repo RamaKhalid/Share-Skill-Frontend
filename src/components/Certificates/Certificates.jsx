@@ -9,7 +9,7 @@ import AlertMessage from '../Alert/AlertMessage'
 
 
 function Certificates({user}) {
-    const [certificates, setCertificates]= useState([])
+    const [certificatesList, setCertificatesList]= useState([])
     const [onecertificate, setOneCertificate]= useState([])
     const [showModal, setShowModel] =useState(false)
     const [showDelete, setShowDelete] =useState(false)
@@ -23,7 +23,7 @@ console.log(user.user_id);
         console.log(response.data)
         console.log(response.error);
         
-        setCertificates(response.data)
+        setCertificatesList(response.data)
     }
     useEffect(() => {
         getAllCertificates()
@@ -32,7 +32,7 @@ console.log(user.user_id);
 
     function handleClick(e) {
         e.preventDefault()
-        const certificate = certificates.filter((certificate)=> certificate.id == e.target.value)
+        const certificate = certificatesList.filter((certificate)=> certificate.id == e.target.value)
         setOneCertificate(certificate)
         if (e.target.name === 'edit' || e.target.name === 'addNew' ){
             console.log(e.target.name);
@@ -48,13 +48,13 @@ console.log(user.user_id);
         
         <ul className="cards">
             
-            {showModal && < FormCertificate user={user} setCertificates={setCertificates} setSuccess={setSuccess} certificate={onecertificate} setShowModel={setShowModel} onClose= {()=>setShowModel(false)}  />}
-            {showDelete && < DeleteCertificates user={user} setSuccess={setSuccess} certificate={onecertificate}  onClose= {()=>setShowDelete(false)} />}
+            {showModal && < FormCertificate user={user} setCertificatesList={setCertificatesList} certificatesList={certificatesList} setSuccess={setSuccess} certificate={onecertificate} onClose= {()=>setShowModel(false)}  />}
+            {showDelete && < DeleteCertificates user={user} setCertificatesList={setCertificatesList} certificatesList={certificatesList} setSuccess={setSuccess} certificate={onecertificate}  onClose= {()=>setShowDelete(false)} />}
             {success?<AlertMessage severity_name="success" message={success}/> : '' }
             {
-                certificates.length
+                certificatesList.length
                 ?
-                certificates.map(certificate=>{
+                certificatesList.map(certificate=>{
                     return(
                         <li key={certificate.id}>
                             <a href="" className="card">

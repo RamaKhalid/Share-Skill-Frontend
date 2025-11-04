@@ -3,7 +3,7 @@ import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 
 
 
-function DeleteCertificates({user, certificate, setSuccess, onClose}) {
+function DeleteCertificates({user, certificate,setCertificatesList, certificatesList, setSuccess, onClose}) {
     console.log(certificate);
     
     const modelRef = useRef()
@@ -23,8 +23,8 @@ function DeleteCertificates({user, certificate, setSuccess, onClose}) {
             console.log(response.data)
             // setCertificate(response.data)
             // window.location.reload();
-            const exp = experiencesList.filter((exp)=> exp.id != experience[0].id)
-            setExperiencesList(exp)
+            const certifi = certificatesList.filter((certifi)=> certifi.id != certificate[0].id)
+            setCertificatesList(certifi)
             setSuccess(`Your Certificate ${certificate[0].name} Is Deteted Successfully!`)
             onClose()
         } catch (err) {

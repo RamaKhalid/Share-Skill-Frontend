@@ -6,7 +6,7 @@ import DeleteExperiences from './DeleteExperiences'
 import AlertMessage from '../Alert/AlertMessage'
 
 function ExperiencesList({user}) {
-  const [experiencesList, setExperiencesList]= useState([])
+    const [experiencesList, setExperiencesList]= useState([])
     const [oneExperiences, setOneExperiences]= useState([])
     const [showForm, setShowForm] =useState(false)
     const [showDelete, setShowDelete] =useState(false)

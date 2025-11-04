@@ -12,7 +12,7 @@ function FormExperiences({user,experiencesList, setExperiencesList, experience,s
       })
     const modelRef = useRef()
     const [lastIndex, setLastIndex] = useState (experiencesList.length)
-    console.log(lastIndex);
+    // console.log(lastIndex);
     
 
     async function handleSubmit(e){

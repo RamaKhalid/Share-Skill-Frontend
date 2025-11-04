@@ -5,8 +5,7 @@ import AlertMessage from '../Alert/AlertMessage';
 
 
 
-function FormCertificate({user,setSuccess, certificate, setShowModel, onClose}) {  
-  console.log("certificate");
+function FormCertificate({user,setSuccess, certificate,setCertificatesList, certificatesList, onClose}) {  
   
     const [certificateData, setCertificates]= useState({
         name : certificate.length? certificate[0].name: '',
@@ -27,22 +26,24 @@ function FormCertificate({user,setSuccess, certificate, setShowModel, onClose}) 
         try {
           let response = {}
           if (certificate.length){
-            const response = await authRequest(
+             response = await authRequest(
                             {data: certificateData,
                              method:'put',
                              url: `http://127.0.0.1:8000/ss/profile/certificate/${certificate[0].id}/`})
           if (response){
             setSuccess('Your Certificate Is Updeated Successfully! ')
-            onClose()
+            setCertificatesList(response.data)
+            // onClose()
           }
               
           }else{            
-            const response = await authRequest(
+             response = await authRequest(
                             {data: certificateData,
                              method:'post',
                              url:`http://127.0.0.1:8000/ss/profile/${user.user_id}/certificate/`})
             if (response){
             setSuccess('Your Certificate is Added Successfully! ')
+            setCertificatesList(response.data)
             
           }
 
