@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 
 
-function FormExperiences({user, experience, setShowModel, onClose }) {
+function FormExperiences({user,experiencesList, setExperiencesList, experience,setSuccess, setShowModel, onClose }) {
   const [experienceData, setExperienceData]= useState({
         title : experience.length? experience[0].title: '',
         date: experience.length? experience[0].date :'',
@@ -11,8 +11,12 @@ function FormExperiences({user, experience, setShowModel, onClose }) {
         owner: user.user_id
       })
     const modelRef = useRef()
+    const [lastIndex, setLastIndex] = useState (experiencesList.length)
+    console.log(lastIndex);
+    
 
     async function handleSubmit(e){
+        e.preventDefault()
         try {
           let response = {}
           if (experience.length){
@@ -20,15 +24,26 @@ function FormExperiences({user, experience, setShowModel, onClose }) {
                             {data: experienceData,
                              method:'put',
                              url:`http://127.0.0.1:8000/ss/profile/experience/${experience[0].id}/`})
+            if (response){
+            setSuccess('Your Experience Is Updeated Successfully! ')
+            // const lastIndex = experiencesList.length()
+            setExperiencesList( response.data)
+            onClose()
+          }
           }else{
             response = await authRequest(
                             {data: experienceData,
                              method:'post',
                              url:`http://127.0.0.1:8000/ss/profile/${user.user_id}/experience/`})
+          if (response){
+            setSuccess('Your Experience is Added Successfully! ')
+            // const lastIndex = experiencesList.length()
+            setExperiencesList( response.data)
           }
+           }
             console.log(response.data)
             setExperienceData(response.data)
-            setShowModel(false)
+            onClose()
         } catch (err) {
           console.error(err)
           console.log(err.response.data)

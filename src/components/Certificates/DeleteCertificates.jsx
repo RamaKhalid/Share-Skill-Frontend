@@ -15,15 +15,17 @@ function DeleteCertificates({user, certificate, setSuccess, onClose}) {
     console.log(certificate);
     
     async function handleDelete(e) {
-        // e.preventDefault()
+        e.preventDefault()
         try {
             const response = await authRequest(
                             {method:'delete',
                              url: `http://127.0.0.1:8000/ss/profile/certificate/${certificate[0].id}/`})
             console.log(response.data)
             // setCertificate(response.data)
-            window.location.reload();
-            setSuccess('Your Certificate Is Deteted Successfully!')
+            // window.location.reload();
+            const exp = experiencesList.filter((exp)=> exp.id != experience[0].id)
+            setExperiencesList(exp)
+            setSuccess(`Your Certificate ${certificate[0].name} Is Deteted Successfully!`)
             onClose()
         } catch (err) {
           console.error(err)
