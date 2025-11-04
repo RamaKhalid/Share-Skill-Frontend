@@ -20,7 +20,7 @@ export default function SignUp() {
     e.preventDefault()
     try {
       if (pass){
-        const response= await axios.post('http://127.0.0.1:8000/ss/signup/', { username, first_name, last_name, password, email, birth_date, level, phone })
+        const response= await axios.post('http://127.0.0.1:8000/ss/signup/', { username, first_name, last_name, password, email})
         navigate('/login/')
       }
      
@@ -43,27 +43,31 @@ export default function SignUp() {
          let reg = new RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$");
          let test = reg.test(pass);
          if (test) {
-            alert('pass');
+            // alert('pass');
             setPass(true);
             setError('')
          }else{
-          setError('Password Must Be At Least 8 characters long at least one uppercase letter at least one lowercase letter at least one digit at least one special character')
+          setError('Password Must Be \n-At Least 8 characters long \n-at least one uppercase letter \n-at least one lowercase letter \n-at least one digit at least one special character')
          }        
     }
 
   return (
-    <>
-    {error?<Alert severity="error">{error}</Alert> : '' }
+    <div className="login_main">
+      <div>
+        {error?<Alert severity="error">{error}</Alert> : '' }
     <form onSubmit={handleSubmit}>
       
-      <h2>Sign Up</h2>
-      <input placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} required/>
-      <input placeholder='First Name' value={first_name} onChange={e => setFirstName(e.target.value)} required/>
-      <input placeholder='Last Name' value={last_name} onChange={e => setLastName(e.target.value)} required />
-      <input type='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} required />
-      <input type='password' placeholder='Password' value={password} onChange={(e)=>{handleChange(e)}}required />
-      <button type='submit'>Sign Up</button>
+      <h2 className="Login_sign">Sign Up</h2>
+      <input className="login_input "  placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} required/>
+      <input className="login_input "  placeholder='First Name' value={first_name} onChange={e => setFirstName(e.target.value)} required/>
+      <input className="login_input "  placeholder='Last Name' value={last_name} onChange={e => setLastName(e.target.value)} required />
+      <input className="login_input "  type='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} required />
+      <input className="login_pass "  type='password' placeholder='Password' value={password} onChange={(e)=>{handleChange(e)}}required />
+      <br />
+      <button className="login_submit"  type='submit'>Sign Up</button>
     </form>
-    </>
+      </div>
+    
+    </div>
   )
 }

@@ -5,6 +5,7 @@ import { saveTokens, getUserFromToken } from "../../lib/auth"
 import { useNavigate } from "react-router"
 import Alert from '@mui/material/Alert';
 import AlertMessage from "../Alert/AlertMessage";
+import "./LoginSingup.css"
 
 
 
@@ -30,14 +31,21 @@ export default function Login({user, setUser }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
+    <div className="login_main">
+      <div>
+        <form className="login_form1" onSubmit={handleSubmit}>
+      <h2 className="Login_sign">Login</h2>
           {error?< AlertMessage severity_name="error" message={error}/> : '' }
           {user?'':< AlertMessage severity_name="error" message="You Are Unauthorized, Please Log In First"/>  }
-      <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} required/>
-      <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} required/>
-      <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required/>
-      <button type="submit">Login</button>
+      <input className="login_input " placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} required/>
+      <input className="login_input " type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} required/>
+      <input className="login_pass" type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required/>
+      <br />
+      <button className="login_submit"  type="submit">Login</button>
     </form>
+      </div>
+      
+    </div>
+    
   )
 }

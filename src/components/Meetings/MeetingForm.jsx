@@ -1,10 +1,11 @@
 import React from 'react'
 import { useRef, useState } from 'react'
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
+import AlertMessage from '../Alert/AlertMessage'
 
 
 
-function MeetingForm({user,meetings, meetingId,meetingsList, setMeestingList, setSuccess ,onClose}) {
+function MeetingForm({user,meetings, meetingId, setMeestingList, setSuccess ,onClose}) {
      const modelRef = useRef()
      console.log(meetings)
      
@@ -18,8 +19,14 @@ function MeetingForm({user,meetings, meetingId,meetingsList, setMeestingList, se
         user:user.user_id,
 
     })
+    const [errors, setErrors] = useState(null)
     async function handleSubmit(e){
         e.preventDefault()
+        if (meeting.starting_time) {
+              if (meeting.end_time< meeting.starting_time) {
+                setErrors('Starting Time Must Be Befor The End Time')
+                return
+              }}
 
         let response= {}
         try {        
@@ -56,6 +63,30 @@ function MeetingForm({user,meetings, meetingId,meetingsList, setMeestingList, se
         }
 
         function handleChange(e) {
+          let time1 = meeting.starting_time;
+          let time2 = meeting.end_time;
+
+          let start = time1.split(":");
+          let end = time2.split(":");
+
+          if (start[0] < end[0]) {
+                setErrors('Starting Time Must Be Befor The End Time')
+          } else {
+              // Hours are equal, compare minutes
+               if (start[1] < end[1]) {
+                setErrors('Starting Time Must Be Befor The End Time')
+          }}
+
+          console.log(e);
+          // if(e.target.name === 'end_time'){
+          //   console.log(typeof meeting.starting_time);
+          //   if (meeting.starting_time) {
+          //     if (meeting.end_time< meeting.starting_time) {
+          //       setErrors('Starting Time Must Be Befor The End Time')
+          //     }
+          //   }
+            
+          // }
         setMeesting({...meeting, [e.target.name]: e.target.value})
     }
 
@@ -69,6 +100,7 @@ function MeetingForm({user,meetings, meetingId,meetingsList, setMeestingList, se
     <div>
         <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
         <div className='innerFormModelContener'>
+            {errors ?< AlertMessage severity_name="error" message={errors}/>:'' }
             <h1>{meetings.length? 'Edit your meeting':'Add New Meeting'}</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="date"> Date: </label>
