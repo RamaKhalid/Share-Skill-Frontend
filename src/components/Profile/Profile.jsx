@@ -1,10 +1,9 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
-
-import axios from 'axios'
 import SkillList from './SkillList'
 import Alert from '@mui/material/Alert';
+import "./profile.css"
 
 
 function Profile({user}) {
@@ -100,39 +99,46 @@ function handleUserChange(e) {
 
    
     return (
-    <div>
-    {success?<Alert severity="success">{success}</Alert> : '' }
-        <h1>Welcom {userInfo.first_name} {userInfo.last_name} </h1>
-         <form onSubmit={handleSubmit}>
+    <div >
+        <div className='profile_container'>
+            <dive>
+        <h1 className='profile_title'>Welcom {userInfo.first_name} {userInfo.last_name} </h1>
+            {success?<Alert severity="success">{success}</Alert> : '' }
+         <form className='profile_form1' onSubmit={handleSubmit}>
             <label htmlFor="username">Username: </label>
-            <input value={userInfo.username} name='username' onChange={handleUserChange} />
+            <input className='profile_input' value={userInfo.username} name='username' onChange={handleUserChange} />
 
             <label htmlFor="first_name">First Name: </label>
-            <input value={userInfo.first_name} name='first_name' onChange={handleUserChange}/>
+            <input className='profile_input' value={userInfo.first_name} name='first_name' onChange={handleUserChange}/>
 
             <label htmlFor="last_name">Last Name: </label>
-            <input value={userInfo.last_name} name='last_name' onChange={handleUserChange} />
+            <input className='profile_input' value={userInfo.last_name} name='last_name' onChange={handleUserChange} />
 
             <label htmlFor="birth_date"> Birth Date:  </label>
-            <input value={userInfo.birth_date} type='date' name='birth_date' onChange={handleUserChange} />
+            <input className='profile_input' value={userInfo.birth_date} type='date' name='birth_date' onChange={handleUserChange} />
 
-            <label htmlFor="level" >Level: </label>
-            <select value={profileInfo.level} onChange={handleProfilChange} name='level' >
+            <label  htmlFor="level" >Level: </label>
+            <select className='profile_input' value={profileInfo.level} onChange={handleProfilChange} name='level' >
                 <option value="Beginner">Beginner</option>
                 <option value="Intermediate">Intermediate</option>
                 <option value="Expert">Expert</option>
             </select>
 
             <label htmlFor="phone"  >Phone number: </label>
-            <input type='phone'  pattern="[0][5][0-9]{8}" name='phone' value={profileInfo.phone} onChange={handleProfilChange}/>
+            <input className='profile_input' type='phone'  pattern="[0][5][0-9]{8}" name='phone' value={profileInfo.phone} onChange={handleProfilChange}/>
 
             <label htmlFor="email">Email: </label>
-            <input type='email' value={userInfo.email} name='email' onChange={handleUserChange} />
-            <button type='submit'>Save</button>
-         </form>
-         <div>
+            <input className='profile_input' type='email' value={userInfo.email} name='email' onChange={handleUserChange} />
+            <button className='profile_submit' type='submit'>Save</button>
+         </form> 
+            </dive>
+    
+         </div>
+
+         <div className='profile_container'>
             < SkillList user= {user} profileInfo= {profileInfo} setProfileInfo = {setProfileInfo} />
          </div>
+        
         
     </div>
   )
