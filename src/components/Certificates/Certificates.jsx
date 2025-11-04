@@ -48,8 +48,8 @@ console.log(user.user_id);
         
         <ul className="cards">
             
-            {showModal && < FormCertificate user={user} setSuccess={setSuccess} certificate={onecertificate} setShowModel={setShowModel} onClose= {()=>setShowModel(false)}  />}
-            {showDelete && < DeleteCertificates user={user} certificate={onecertificate} setShowModel={setShowDelete} onClose= {()=>setShowDelete(false)} />}
+            {showModal && < FormCertificate user={user} setCertificates={setCertificates} setSuccess={setSuccess} certificate={onecertificate} setShowModel={setShowModel} onClose= {()=>setShowModel(false)}  />}
+            {showDelete && < DeleteCertificates user={user} setSuccess={setSuccess} certificate={onecertificate}  onClose= {()=>setShowDelete(false)} />}
             {success?<AlertMessage severity_name="success" message={success}/> : '' }
             {
                 certificates.length

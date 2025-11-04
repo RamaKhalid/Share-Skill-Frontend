@@ -3,7 +3,7 @@ import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 
 
 
-function DeleteCertificates({user, certificate, setShowModel, onClose}) {
+function DeleteCertificates({user, certificate, setSuccess, onClose}) {
     console.log(certificate);
     
     const modelRef = useRef()
@@ -15,14 +15,16 @@ function DeleteCertificates({user, certificate, setShowModel, onClose}) {
     console.log(certificate);
     
     async function handleDelete(e) {
+        // e.preventDefault()
         try {
             const response = await authRequest(
                             {method:'delete',
                              url: `http://127.0.0.1:8000/ss/profile/certificate/${certificate[0].id}/`})
-            // console.log(response.data)
+            console.log(response.data)
             // setCertificate(response.data)
             window.location.reload();
-            setShowModel(false)
+            setSuccess('Your Certificate Is Deteted Successfully!')
+            onClose()
         } catch (err) {
           console.error(err)
           console.log(err.response.data)
@@ -32,8 +34,8 @@ function DeleteCertificates({user, certificate, setShowModel, onClose}) {
     
   return (
     <div>
-        <div ref={modelRef} className='EditModelContener' onClick={closeModel}>
-        <div className='innerEditModelContener'>
+        <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
+        <div className='innerFormModelContener'>
             <h1>Are You Sure You want to delete your {certificate[0].name} Certificate?</h1>
             <button onClick= {handleDelete}>yes</button>
             <button onClick={onClose}>cancel</button>
