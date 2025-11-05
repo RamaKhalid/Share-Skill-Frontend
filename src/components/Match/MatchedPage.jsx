@@ -52,8 +52,8 @@ function MatchedPage() {
   
     return (
     <div>
-        <h1>Perfect Match!</h1>
-        <div className="container">
+        {data.users_can_teach_and_learn_by_you.length?<h1 style={{ marginTop: 10,color: '#58005E',justifyContent:'center', display:'flex', fontSize: 70, fontFamily: 'Inria Serif', fontWeight: '400'}}>Perfect Match!</h1>:" No Mating :("}
+        <div className="hopmepage_container">
         {
             data.users_can_teach_and_learn_by_you.length  
                 ?

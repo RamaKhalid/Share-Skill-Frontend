@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react'
-import axios from 'axios'
 import { useNavigate, useParams } from 'react-router'
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 
@@ -15,31 +14,31 @@ function MatchForm({onClose, user, profileInfo}) {
         onClose();
       }
     }
-     async function handleSubmit(e){
-        // e.preventDefault()
-        console.log(userId);
-        try {        
-          console.log(skill.role);
-                                     
-            response =await authRequest(
-                                      {data:skill,
-                                        method:'post',
-                                       url:`http://127.0.0.1:8000/ss/skills/${userId}`})
+     async function getMatchbyOneSkill(skill){
+        console.log(skill);
+        try {       
+            const response = await authRequest(
+                            {method:'get',
+                             url: `http://127.0.0.1:8000/ss/match/${user.user_id}/skill/${skill}`})
             console.log(response.data)
-            setSkill(response.data)
-            setShowModel(false)
-          
-        } catch (err) {
-          if (err.response && err.response.status === 400) {
-          alert('Skill alrady exist')
-          }
-          console.error(err.response)
-          console.log(err.response)
-            }
+            setMatchedSkill(response.data)
+            onClose
+            if ( response.status === 200) {
+            navigate(`/match/`, { state: { data: response.data } })
         }
+        } catch (err) {
+          if (err.response) {
+                console.error( err.response.data);
+            } else {
+                console.error( err.message);
+            }
+            }
+     }
 
-    async function getMatchAny(e){
-        e.preventDefault()
+    async function getMatchAny(){
+        // console.log(skill);
+        
+        // e.preventDefault()
         try {       
             const response = await authRequest(
                             {method:'get',
@@ -64,33 +63,31 @@ function MatchForm({onClose, user, profileInfo}) {
     <div>
         <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
         <div className='innerFormModelContener'>
-            <h2>Select the Skills you want to get match with</h2>
-            <form onSubmit={handleSubmit}>
+                {profileInfo.skills_user_learn.length?<h2>Select the Skills you want to get match with</h2>:''}
+            <form >
 
                 {
-                profileInfo.skills_user_learn
+                    profileInfo.skills_user_learn
                     ?
                     <ul>
                         {
                             profileInfo.skills_user_learn.length
-                                ?
+                            ?
                                 profileInfo.skills_user_learn.map(skill => {
                                     return (
                                         <li key={skill.id}>
-                                            <button className='list_buttons' onClick={() => { desocciateSkill(skill.id) }}>{skill.type} {skill.name}</button>
+                                            <button type='button' onClick={() =>{ getMatchbyOneSkill(skill.id) }}>{skill.type} {skill.name}</button>
                                         </li>
                                     )
                                 })
                                 :
-                                <li>No Skill 😢</li>
+                                <li  >You Didn't Register Your Skills Please Go To Your Profile And Update Your Data So You Can Enjoy Our Service! </li>
                             }
-                            <button type='button' onClick={getMatchAny}>Any Skill</button>
+                            {profileInfo.skills_user_learn.length?<button type='button' onClick={getMatchAny}>Any Skill</button>:""}
                     </ul>
                     :
-                    <p>Loading</p>
+                    <p>Loading...</p>
             }
-                <button  type='submit'>Save</button>
-                <button onClick={onClose}>cancel</button>
             </form>
         </div>
     </div>

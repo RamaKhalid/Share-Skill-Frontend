@@ -2,7 +2,7 @@ import {useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import MatchForm from './MatchForm'
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
-
+import "./match.css"
 
 function Match({user}) {
 const [showForm, setShowForm] =useState(false)
@@ -45,9 +45,9 @@ function handleClick(e) {
      }
     
   return (
-    <div>
+    <div className='match_btn_contener'>
         {showForm &&<MatchForm user={user} profileInfo={profileInfo} onClose= {()=>setShowForm(false)}/>}        
-            <button onClick={handleClick}>Make Match</button>
+            <button className="find_match_button"  onClick={handleClick}>Find Your Match</button>
     </div>
   )
 }
