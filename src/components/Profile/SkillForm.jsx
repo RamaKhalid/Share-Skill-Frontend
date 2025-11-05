@@ -3,6 +3,7 @@ import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 import AlertMessage from '../Alert/AlertMessage'
 
 
+
 function SkillForm({onClose, userId}) {
     const modelRef = useRef()
     const [skill, setSkill]= useState({
@@ -58,22 +59,29 @@ function SkillForm({onClose, userId}) {
         <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
         <div className='innerFormModelContener'>
       {errors?< AlertMessage severity_name="error" message={errors}/> : '' }
-            <h1>Add New Skill</h1>
+            <h1 className='Login_sign'>Add New Skill</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="type"> Type: </label>
-            <input value={skill.type} name='type' onChange={handleChange}/>
+                <label className="label" htmlFor="type"> Type: </label>
+            <input className='input is-rounded ' style={{background:'rgba(136, 126, 126, 0.04)'}}  value={skill.type} name='type' onChange={handleChange}/>
 
-            <label htmlFor="name">Name: </label>
-            <input value={skill.name} name='name' onChange={handleChange} />
+            <label className="label" htmlFor="name">Name: </label>
+            <input className='input is-rounded ' style={{background:'rgba(136, 126, 126, 0.04)'}}  value={skill.name} name='name' onChange={handleChange} />
 
-            <label htmlFor="role">Role: </label>
-            <select value={skill.role} name='role' onChange={handleChange} >
-              <option value="Teach">Teach</option>
-              <option value="Learn">Learn</option>
-              </select>
-            
-                <button  type='submit'>Save</button>
-                <button onClick={onClose}>cancel</button>
+            <label className="label" htmlFor="role">Role: </label>
+            <div class="select is-rounded" style={{background:'rgba(136, 126, 126, 0.04)'}}>
+              <select value={skill.role} name='role' onChange={handleChange} style={{background:'rgba(136, 126, 126, 0.04)'}}>
+                <option value="Teach">Teach</option>
+                <option value="Learn">Learn</option>
+                </select>
+            </div>
+            <div className="field is-grouped is-grouped-centered">
+                  <p className="control">
+                      <button className='submit_form_btn'  type='submit'>Save</button>
+                  </p>
+                  <p className="control">
+                      <button className='submit_form_btn'style={{background: 'linear-gradient(to right, #e4e3e3ff, #f5e6f8ff)', color:'#9C27B0'}}   onClick={onClose}>cancel</button>
+                  </p>
+                  </div>
             </form>
         </div>
     </div>

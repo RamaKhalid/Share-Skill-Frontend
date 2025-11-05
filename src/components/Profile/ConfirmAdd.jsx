@@ -34,14 +34,22 @@ function ConfirmAdd({onClose,associateSkill ,setRole, skillData}) {
     <div>
         <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
         <div className='innerFormModelContener'>
-            <h1>Are you Going to Teach or to Learn {skillData.name} skill?</h1>
+            <h1 className='Login_sign'>Are you Going to Teach or to Learn {skillData.name} skill?</h1>
             <form onSubmit={handleSubmit}>
-            <select value={skill} name='role' onChange={handleChange} >
+              <div class="select is-rounded" style={{background:'rgba(136, 126, 126, 0.04)', width:250}}>
+            <select value={skill} name='role' onChange={handleChange} style={{background:'rgba(136, 126, 126, 0.04)', width:250}} >
               <option value="Teach">Teach</option>
               <option value="Learn">Learn</option>
               </select>
-                <button onClick={(e)=>setRole(skill)} type='submit'>Save</button>
-                <button onClick={onClose}>cancel</button>
+              </div>
+              <div className="field is-grouped is-grouped-centered">
+                  <p className="control">
+                    <button className=" submit_form_btn"  onClick={(e)=>setRole(skill)} type='submit'>Save</button>
+                  </p>
+                  <p className="control">
+                      <button className='submit_form_btn' style={{background: 'linear-gradient(to right, #e4e3e3ff, #f5e6f8ff)', color:'#9C27B0'}} onClick={onClose}>cancel</button>
+                  </p>
+                  </div>
             </form>
         </div>
     </div>
