@@ -53,10 +53,20 @@ function HomePage({user}) {
   return (
     <div>
         <SearchBar setSkillId={setSkillId} onTrigger={getUserBySkill} user={user} />
+        <div style={{width: 842, height: 547, position: 'relative' ,marginLeft:300}}>
+  {/* <div style={{width: 100 ,height: 547, left: 0, top: 0, position: 'absolute', background: 'white'}} /> */}
+  <div style={{width: 166.02, height: 174.64, left: 237.37, top: 186.18, position: 'absolute', background: '#FF0D6A', boxShadow: '150px 150px 150px ', borderRadius: 9999, filter: 'blur(75px)'}} />
+  <div style={{width: 166.02, height: 174.64, left: 343.02, top: 186.18, position: 'absolute', background: '#8886F1', boxShadow: '150px 150px 150px ', borderRadius: 9999, filter: 'blur(75px)'}} />
+  <div style={{width: 166.02, height: 174.64, left: 448.67, top: 186.18, position: 'absolute', background: '#EA00FF', boxShadow: '150px 150px 150px ', borderRadius: 9999, filter: 'blur(75px)'}} />
+  <div style={{width: 296, height: 50, left: 393, top: 344, position: 'absolute', color: '#58005E', fontSize: 32, fontFamily: 'Inria Serif', fontWeight: '400', wordWrap: 'break-word'}}>learn what you love</div>
+  <div style={{width: 396, left: 254, top: 304, position: 'absolute', color: '#58005E', fontSize: 32, fontFamily: 'Inria Serif', fontWeight: '400', wordWrap: 'break-word'}}>Share what you know </div>
+  <div style={{width: 446, height: 179, left: 225, top: 184, position: 'absolute', color: '#58005E', fontSize: 96, fontFamily: 'Inria Serif', fontWeight: '400', wordWrap: 'break-word'}}>SwapSkill</div>
+</div>
+        
         <Match user= {user} />
-        <h1>Users:</h1>
 
-        <div className="container">
+            <h1 style={{ marginTop: 200,color: '#58005E',justifyContent:'center', display:'flex', fontSize: 70, fontFamily: 'Inria Serif', fontWeight: '400'}}>Users:</h1>
+        <div className="hopmepage_container">
         {
             // (searchData=== undefined || searchData === null || searchData === '')
             users.length  
@@ -74,7 +84,7 @@ function HomePage({user}) {
                         </div>
                         <ul className="sci">
                             <li style={{"--i":1}}>
-                            <a href="#"><i className="fa fa-envelope" aria-hidden="true"></i></a>
+                            <a href={`mailto:${user.email}`}><i className="fa fa-envelope" aria-hidden="true"></i></a>
                             </li>
                         </ul>
                 </div>
