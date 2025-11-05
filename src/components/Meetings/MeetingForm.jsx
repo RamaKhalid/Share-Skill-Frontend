@@ -1,4 +1,3 @@
-import React from 'react'
 import { useRef, useState } from 'react'
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 import AlertMessage from '../Alert/AlertMessage'
@@ -68,15 +67,19 @@ function MeetingForm({user,meetings, meetingId, setMeestingList, setSuccess ,onC
 
           let start = time1.split(":");
           let end = time2.split(":");
-
-          if (start[0] < end[0]) {
+          if(e.target.name === 'end_time'){
+          if (start[0] > end[0]) {
+            console.log('start[0] < end[0]',start[0] , end[0]);
+            
                 setErrors('Starting Time Must Be Befor The End Time')
           } else {
               // Hours are equal, compare minutes
-               if (start[1] < end[1]) {
+               if (start[1] > end[1]) {
+                console.log('start[1] < end[1]');
+                
                 setErrors('Starting Time Must Be Befor The End Time')
           }}
-
+        }
           console.log(e);
           // if(e.target.name === 'end_time'){
           //   console.log(typeof meeting.starting_time);
@@ -101,23 +104,29 @@ function MeetingForm({user,meetings, meetingId, setMeestingList, setSuccess ,onC
         <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
         <div className='innerFormModelContener'>
             {errors ?< AlertMessage severity_name="error" message={errors}/>:'' }
-            <h1>{meetings.length? 'Edit your meeting':'Add New Meeting'}</h1>
+            <h1 className='Login_sign'>{meetings.length? 'Edit your meeting':'Add New Meeting'}</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="date"> Date: </label>
-            <input type='date' value={meeting.date} name='date' onChange={handleChange}required/>
+                <label className="label" htmlFor="date"> Date: </label>
+            <input className='input is-rounded ' style={{background:'rgba(136, 126, 126, 0.04)'}}  type='date' value={meeting.date} name='date' onChange={handleChange}required/>
 
-            <label htmlFor="starting_time">Starting Time: </label>
-            <input type='time' value={meeting.starting_time} name='starting_time' onChange={handleChange}required />
+            <label className="label" htmlFor="starting_time">Starting Time: </label>
+            <input className='input is-rounded ' style={{background:'rgba(136, 126, 126, 0.04)'}}  type='time' value={meeting.starting_time} name='starting_time' onChange={handleChange}required />
 
-            <label htmlFor="end_time">End Time: </label>
-            <input type='time' value={meeting.end_time} name='end_time' onChange={handleChange}required />
+            <label className="label" htmlFor="end_time">End Time: </label>
+            <input className='input is-rounded ' style={{background:'rgba(136, 126, 126, 0.04)'}}  type='time' value={meeting.end_time} name='end_time' onChange={handleChange}required />
 
-            <label htmlFor="participant_username">participant: </label>
-            <input type='text' value={meeting.participant_username} name='participant_username' onChange={handleChange}required />
+            <label className="label" htmlFor="participant_username">participant: </label>
+            <input className='input is-rounded ' style={{background:'rgba(136, 126, 126, 0.04)'}}  type='text' value={meeting.participant_username} name='participant_username' onChange={handleChange}required />
 
+              <div className="field is-grouped is-grouped-centered">
+                  <p className="control">
+                    <button className=" submit_form_btn" type='submit'>Save</button>
+                  </p>
+                  <p className="control">
+                    <button className='submit_form_btn' style={{background: 'linear-gradient(to right, #e4e3e3ff, #f5e6f8ff)', color:'#9C27B0'}}  onClick={onClose}>cancel</button>
+                  </p>
+                  </div>
             
-                <button  type='submit'>Save</button>
-                <button onClick={onClose}>cancel</button>
             </form>
         </div>
     </div>

@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import DeleteMeeting from './DeleteMeeting';
 import AlertMessage from '../Alert/AlertMessage';
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
-
+import "./schedule.css"
 
 
 // sorce code for the table: https://purecode.ai/discover/html/table
@@ -28,7 +28,6 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
         participant:'',
         user:user.user_id
   })
-  
   
   
   const [success, setSuccess] = useState(null)
@@ -108,14 +107,13 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
 <div className="meeting_container">
   <div className="meeting_card">
   {success? <AlertMessage severity_name="success" message={success}/> : '' }
-  <h1 className="meeting_page_title">Your Meetings:</h1>
+  <h1 style={{ color: '#58005E',justifyContent:'center', display:'flex', fontSize: 45, fontFamily: 'Inria Serif', fontWeight: '400'}}>Your Meetings:</h1>
 
     <div className="meeting_toolbar">
       {showDelete && <DeleteMeeting  user={user}  meetingId={meetingId} onClose= {()=>setShowDelete(false)}/>}
       {showForm && <MeetingForm  user={user} setSuccess={setSuccess} meetingId={meetingId} meetings ={meetings} meetingsList={meetingsList} setMeestingList={setMeestingList} onClose= {()=>setShowForm(false)}/>}
-      <button onClick={handleClick} name='addNew'  className="create-btn">
-      {/* <button className="create-btn"> */}
-        <FaPlus className="icon" /> Create New Meeting
+      <button  onClick={handleClick} name='addNew'  className="meeting_create-btn">
+        <FaPlus className="icon" style={{ fill: 'white' }}  /> Create New Meeting
       </button>
     </div>
 
@@ -161,8 +159,10 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
     ):
     (
       <div className="meeting_spinner-container">
-        {/* <CgSpinner className="meeting_spinner" /> */}
+        <h2 style={{color:"#8C55AA"}}>
         You Don't Have Any Meeting Yet
+          
+        </h2>
       </div>
     ) 
   }
@@ -171,7 +171,7 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
     <br/>
   <div className="meeting_card">
   {/* {success? <AlertMessage severity_name="success" message={success}/> : '' } */}
-  <h1 className="meeting_page_title">Your Finshed Meetings:</h1>
+  <h1 style={{ color: '#58005E',justifyContent:'center', display:'flex', fontSize: 45, fontFamily: 'Inria Serif', fontWeight: '400'}}>Your Finshed Meetings:</h1>
 
     {meetingsList.length ? (
       <div className="meeting_table-wrapper">
@@ -190,7 +190,19 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
                 <td><span style={{ color: '#6b6868' }}>{meeting.end_time}</span></td>
                 <td><span style={{ color: '#6b6868' }}>{meeting.participant}</span></td>
                 {/* <td><span>{meeting.is_complete? 'Done': "Not Done Yet!"} </span></td> */}
-                <td><span ><Checkbox checked={true } {...label} disabled checke /> </span></td>                
+                <td><span  ><Checkbox
+  checked
+  disabled
+  sx={{
+    color: '#6b6868',
+    '&.Mui-checked': {
+      color: '#6b6868',
+    },
+    '&.Mui-disabled': {
+      color: '#6b6868',
+    },
+  }}
+/></span></td>                
                 <td>
                   <div className="meeting_actions">
                     {/* <button type='button'className="meeting_edit-btn" name='edit' onClick={(e)=>handleClick(e,meeting.id)} ><FaEdit /></button> */}
@@ -206,9 +218,11 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
       </div>
     ):
     (
-      <div className="meeting_spinner-container">
-        {/* <CgSpinner className="meeting_spinner" /> */}
-        You Don't Have Any Meeting Yet
+      <div className="meeting_spinner-container" >
+        <h2 style={{color:"#8C55AA"}}> 
+          You Don't Have Any Meeting Yet!
+          
+        </h2>
       </div>
     ) 
     }
