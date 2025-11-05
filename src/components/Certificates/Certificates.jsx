@@ -8,6 +8,7 @@ import AlertMessage from '../Alert/AlertMessage'
 
 
 
+
 function Certificates({user}) {
     const [certificatesList, setCertificatesList]= useState([])
     const [onecertificate, setOneCertificate]= useState([])
@@ -47,6 +48,7 @@ console.log(user.user_id);
         <div>
         
         <ul className="cards">
+        <h1 className='profile_title'>Your Certificates ✨ </h1>
             
             {showModal && < FormCertificate user={user} setCertificatesList={setCertificatesList} certificatesList={certificatesList} setSuccess={setSuccess} certificate={onecertificate} onClose= {()=>setShowModel(false)}  />}
             {showDelete && < DeleteCertificates user={user} setCertificatesList={setCertificatesList} certificatesList={certificatesList} setSuccess={setSuccess} certificate={onecertificate}  onClose= {()=>setShowDelete(false)} />}
@@ -58,7 +60,7 @@ console.log(user.user_id);
                     return(
                         <li key={certificate.id}>
                             <a href="" className="card">
-                                <img src="https://i.imgur.com/oYiTqum.jpg" className="card__image" alt="" />
+                                <img src="src\assets\images\certificate.png" className="card__image" alt="" />
                                 <div className="card__overlay">
                                     <div className="card__header">
                                     {/* <svg className="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                      */}
@@ -69,8 +71,14 @@ console.log(user.user_id);
 
                                     </div>
                                     </div>
-                                    <button className="card__description" onClick={handleClick} value={certificate.id} name='edit'>Edit</button>
-                                    <button className="card__description" onClick={handleClick} value={certificate.id} name='delete'>Delete</button>
+                                    <div class="field is-grouped is-grouped-centered">
+                                        <p class="control">
+                                            <button className="button is-primary " onClick={handleClick} value={certificate.id} name='edit'>Edit</button>
+                                        </p>
+                                        <p class="control">
+                                            <button className="card__description" onClick={handleClick} value={certificate.id} name='delete'>Delete</button>
+                                        </p>
+                                    </div>
                                 </div>
                             </a>      
                         </li>
@@ -88,7 +96,7 @@ console.log(user.user_id);
                 </li>
             }
             
-            <button name='addNew' className="card__status" onClick={handleClick}>Add New Certificate</button>
+            <button name='addNew' className=" submit_form_btn" onClick={handleClick}>Add New Certificate</button>
         </ul>
     </div>
   )

@@ -82,17 +82,30 @@ function FormCertificate({user,setSuccess, certificate,setCertificatesList, cert
     }
   return (
     <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
-        <div className='innerFormModelContener'>
             {errors?< AlertMessage severity_name="error" message={errors}/> : '' }
-            <h1>{certificate.length? `Edit ${certificateData.name} certificate` :'Add New certificate' }</h1>
+        <div className='innerFormModelContener'>
+            <h1 className='Login_sign' >{certificate.length? `Edit ${certificateData.name} certificate` :'Add New certificate' }</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="name"> Name: </label>
-            <input value={certificateData.name} name='name' onChange={handleChange}/>
+                <label className="label" htmlFor="name"> Name: </label>
+                <div className='control'>
+                 <input className='input is-rounded' style={{background:'rgba(136, 126, 126, 0.04)'}}  value={certificateData.name} name='name' onChange={handleChange}/>
+                </div>
+<br/>
+            <label class="label" htmlFor="type">Type: </label>
+                <div className='control'>
+                  <input className='input is-rounded ' style={{background:'rgba(136, 126, 126, 0.04)'}} value={certificateData.type} name='type' onChange={handleChange} />
 
-            <label htmlFor="type">Type: </label>
-            <input value={certificateData.type} name='type' onChange={handleChange} />
-                <button  type='submit'>Save</button>
-                <button onClick={onClose}>cancel</button>
+                </div>
+
+
+                <div className="field is-grouped is-grouped-centered">
+                  <p className="control">
+                    <button className=" submit_form_btn" type='submit'>Save</button>
+                  </p>
+                  <p className="control">
+                      <button className='submit_form_btn' style={{background: 'linear-gradient(to right, #e4e3e3ff, #f5e6f8ff)', color:'#9C27B0'}} onClick={onClose}>cancel</button>
+                  </p>
+                </div>
             </form>
         </div>
     </div>

@@ -1,37 +1,55 @@
 import React from 'react'
 import { Link } from 'react-router'
 import LogOutButton from '../Auth/LogOutButton'
-import { SearchBar } from '../SearchBar/SearchBar'
-import { useState } from 'react'
 
 
-function NavBar({ user, setUser , setSkillId, setSearchData}) {
-    // const[skillID, setSkillId] = useState('')
+function NavBar({ user, setUser}) {
 
  
   
   return (
-    <nav>
+    <nav className="navbar level" role="navigation" aria-label="main navigation">
+
+      <div id="navbarBasicExample " className="navbar-menu is-spaced">
       {
         user
-          ?
-          <>
-          <LogOutButton setUser={setUser}  />
-          <Link to={'/home'}>Home </Link>
-          <Link to={'/profile'}>Profile </Link>
-          <Link to={'/certificates'}>Certificates </Link>
-          <Link to={'/experiences'}>Experiences </Link>
-          <Link to={'/meeting'}>Meetinga </Link>
-          </>
-          :
-          <>
-            <Link to={'/signup'}>Sign Up</Link>
-            <Link to={'/login'}>Log In</Link>
-          </>
-      }
+    ?
+    <>
+    <div className="navbar-start is-spaced">
+    <Link className="level-item is-active " style={{margin: 30,}} to={'/home'}>Home </Link>
+    <Link className="level-item is-hoverable" style={{margin: 30}} to={'/profile'}>Profile </Link>
+    <Link className="level-item is-hoverable" style={{margin: 30}} to={'/certificates'}>Certificates </Link>
+    <Link className="level-item is-hoverable" style={{margin: 30}} to={'/experiences'}>Experiences </Link>
+    <Link className="level-item is-hoverable" style={{margin: 30}} to={'/meeting'}>Meetinga </Link>
+    </div>
+    <div className="navbar-end">
+      <div className="level-item">
+        <div className="buttons">
+          <Link className="button is-light" >
+            <LogOutButton setUser={setUser}  />
+          </Link>
+        </div>
+      </div>
+    </div>
+    </>
+    :
+    <>
+      <div id="navbarBasicExample " className="navbar-menu is-spaced">
+        <div className="navbar-start is-spaced">
+      <Link className="level-item " style={{margin: 30}} to={'/signup'}>Sign Up</Link>
+      <Link className="level-item " style={{margin: 30}} to={'/login'}>Log In</Link>
+
+        </div>
+      </div>
+    </>
+  }
+
+  </div>
+</nav>
+) 
       
-    </nav>
-  )
+      
+  
 }
 
 export default NavBar

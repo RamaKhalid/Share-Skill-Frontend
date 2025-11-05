@@ -1,37 +1,41 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css";
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  text-align: center; */
+  --bulma-primary-h: 0deg;
+  --bulma-primary-s: 75%;
+  --bulma-primary-l: 98%;
+  --bulma-scheme-main-l: 100%;
+  --bulma-scheme-main-bis-l: 98%;
+  --bulma-scheme-main-ter-l: 98%;
+  --bulma-background-l: 96%;
+  --bulma-border-weak-l: 93%;
+  --bulma-border-l: 86%;
+  --bulma-text-weak-l: 48%;
+  --bulma-text-l: 29%;
+  --bulma-text-strong-l: 21%;
+  --bulma-text-title-l: 14%;
+  --bulma-hover-background-l-delta: 10%;
+  --bulma-active-background-l-delta: 10%;
+  --bulma-hover-border-l-delta: 10%;
+  --bulma-active-border-l-delta: 20%;
+  --bulma-hover-color-l-delta: 20%;
+  --bulma-active-color-l-delta: 10%;
+
+  --bulma-primary-h: 290deg;
+  --bulma-primary-s: 43%;
+  --bulma-primary-l: 95%;
+
+  
+
+}
+.navbar {
+  --bulma-navbar-item-selected-h: 267deg;
+  z-index: 1;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
 
 .card {
   padding: 2em;

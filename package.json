@@ -23,6 +23,7 @@
     "@schedule-x/theme-default": "^3.3.0",
     "axios": "^1.13.1",
     "bootstrap": "^5.3.8",
+    "bulma": "^1.0.4",
     "font-awesome": "^4.7.0",
     "jwt-decode": "^4.0.0",
     "react": "^19.1.1",
