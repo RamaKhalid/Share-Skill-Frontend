@@ -57,7 +57,7 @@ export const SearchBar = ({setSkillId, onTrigger, user}) => {
   }
 
   return (
-    <div>
+    <div  className="search-bar-contenar">
         <div className="input-wrapper">
         <FaSearch id="search-icon" />
         <input

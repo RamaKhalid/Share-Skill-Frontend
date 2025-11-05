@@ -1,7 +1,15 @@
 /* source :https://www.youtube.com/watch?v=sWVgMcz8Q44&t=37s */
-
+.search-bar-contenar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    /* flex-wrap: wrap; */
+    align-items:center;
+    align-content:center;
+}
 .input-wrapper {
-  width: 100%;
+  width: 80%;
   height: 2.5rem;
   border: none;
   border-radius: 10px;
@@ -10,6 +18,7 @@
   background-color: white;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 input {
