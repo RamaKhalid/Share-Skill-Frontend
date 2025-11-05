@@ -47,8 +47,10 @@ console.log(user.user_id);
     return (
         <div>
         
-        <ul className="cards">
+        <div className="cards_container">
         <h1 className='profile_title'>Your Certificates ✨ </h1>
+
+        <ul className="cards">
             
             {showModal && < FormCertificate user={user} setCertificatesList={setCertificatesList} certificatesList={certificatesList} setSuccess={setSuccess} certificate={onecertificate} onClose= {()=>setShowModel(false)}  />}
             {showDelete && < DeleteCertificates user={user} setCertificatesList={setCertificatesList} certificatesList={certificatesList} setSuccess={setSuccess} certificate={onecertificate}  onClose= {()=>setShowDelete(false)} />}
@@ -73,10 +75,10 @@ console.log(user.user_id);
                                     </div>
                                     <div class="field is-grouped is-grouped-centered">
                                         <p class="control">
-                                            <button className="button is-primary " onClick={handleClick} value={certificate.id} name='edit'>Edit</button>
+                                            <button className=" submit_form_btn" onClick={handleClick} value={certificate.id} name='edit'>Edit</button>
                                         </p>
                                         <p class="control">
-                                            <button className="card__description" onClick={handleClick} value={certificate.id} name='delete'>Delete</button>
+                                            <button className='submit_form_btn' onClick={handleClick} value={certificate.id} name='delete'>Delete</button>
                                         </p>
                                     </div>
                                 </div>
@@ -86,18 +88,15 @@ console.log(user.user_id);
                 })
                 :
                 <li>
-                    <a href="" className="card">
-                        <div className="card__overlay">
-                            <div className="card__header">
-                                <h3 className="card__title">No Certificate Yet</h3>            
-                            </div>
-                        </div>
-                    </a>      
+                    <div className="card">
+                        <h3 className="card__title">No Certificate Yet</h3>               
+                    </div>      
                 </li>
             }
             
-            <button name='addNew' className=" submit_form_btn" onClick={handleClick}>Add New Certificate</button>
         </ul>
+            <button name='addNew' className=" submit_form_btn" onClick={handleClick}>Add New Certificate</button>
+        </div>
     </div>
   )
 }

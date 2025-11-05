@@ -18,13 +18,30 @@ body {
 
 .cards {
     
-    /* display: grid; */
+    display: flex;
+    grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 0rem 5vw;
+    padding: 20px;
+    list-style-type: none;
+    flex-direction: row;
+    justify-content: center;
+    justify-items: center;
+    /* flex-wrap: wrap; */
+    align-items:center;
+    align-content:center;
+    
+    
+}
+.cards_container {
+    
+    /* display: flex; */
     grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin: 4rem 5vw;
     padding: 0;
     list-style-type: none;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     justify-items: center;
     /* flex-wrap: wrap; */
@@ -38,10 +55,12 @@ body {
     
     position: relative;
     display: block;
+    width: 20rem;
     height: 100%;
     border-radius: calc(var(--curve) * 1px);
     overflow: hidden;
     text-decoration: none;
+    margin-top: 30px;
 }
 
 .card__overlay {
@@ -184,6 +203,7 @@ body {
 
 .submit_form_btn{
     margin-top: 20px;
+    margin-bottom: 20px;
     cursor: pointer;
     border-radius: 5em;
     color: #fff;

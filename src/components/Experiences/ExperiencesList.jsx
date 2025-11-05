@@ -45,19 +45,21 @@ function ExperiencesList({user}) {
     return (
         <div>
         
-        <ul className="cards">
+        <div className="cards_container">
+        <h1 className='profile_title'>Your Experiences </h1>
             {showDelete && < DeleteExperiences user={user}  experience={oneExperiences} experiencesList={experiencesList} setExperiencesList={setExperiencesList}  setSuccess={setSuccess} onClose= {()=>setShowDelete(false)} />}
             {showForm && < FormExperiences user={user} experiencesList={experiencesList} setExperiencesList={setExperiencesList} setSuccess={setSuccess} experience={oneExperiences} setShowForm={setShowForm} onClose= {()=>setShowForm(false)}  />}
             {success? <AlertMessage severity_name="success" message={success}/> : '' }
             
+        <ul className="cards">
             {
                 experiencesList.length
                 ?
                 experiencesList.map(experiences=>{
                     return(
                         <li key={experiences.id}>
-                            <a href="" className="card">
-                                <img src="https://i.imgur.com/oYiTqum.jpg" className="card__image" alt="" />
+                            <div className="card">
+                                <img src="src\assets\images\rating.png" className="card__image" alt="" />
                                 <div className="card__overlay">
                                     <div className="card__header">
                                     {/* <svg className="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                      */}
@@ -68,27 +70,33 @@ function ExperiencesList({user}) {
                                     </div>
                                     </div>
                                     <p className="card__description">{experiences.description}</p>
-                                    <button className="card__description" onClick={handleClick} value={experiences.id} name='edit'>Edit</button>
-                                    <button className="card__description" onClick={handleClick} value={experiences.id} name='delete'>Delete</button>
+
+                                    <div class="field is-grouped is-grouped-centered">
+                                        <p class="control">
+                                            <button className=" submit_form_btn" onClick={handleClick} value={experiences.id} name='edit'>Edit</button>
+                                        </p>
+                                        <p class="control">
+                                           <button className='submit_form_btn' style={{background: 'linear-gradient(to right, #e4e3e3ff, #f5e6f8ff)', color:'#9C27B0'}} onClick={handleClick} value={experiences.id} name='delete'>Delete</button>
+                                        </p>
+                                    </div>
                                 </div>
-                            </a>      
+                            </div>      
                         </li>
                     )
                 })
                 :
                 <li>
-                    <a href="" className="card">
-                        <div className="card__overlay">
-                            <div className="card__header">
-                                <h3 className="card__title">No Experiences Yet</h3>            
-                            </div>
-                        </div>
-                    </a>      
+                    <div className="card">
+                        {/* <div className="card__overlay"> */}
+                            <h3 className="card__title">No Experiences Yet</h3>            
+                        
+                        {/* </div> */}
+                    </div>      
                 </li>
             }
-            
-            <button name='addNew' className="card__status" onClick={handleClick}>Add New Experiences</button>
         </ul>
+            <button name='addNew' className=" submit_form_btn" onClick={handleClick}>Add New Experiences</button>
+        </div>
     </div>
   )
 }

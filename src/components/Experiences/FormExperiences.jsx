@@ -61,24 +61,36 @@ function FormExperiences({user,experiencesList, setExperiencesList, experience,s
         setExperienceData({...experienceData, [e.target.name]: e.target.value})
     }
   return (
-    <div ref={modelRef} className='FormModelContener' onClick={closeModel}>
+    <div ref={modelRef} className='FormModelContener'  onClick={closeModel}>
         <div className='innerFormModelContener'>
-            <h1>{experience.length? `Edit Your ${experienceData.title} Experience` :'Add New Experience' }</h1>
+            <h1 className='Login_sign'>{experience.length? `Edit Your ${experienceData.title} Experience` :'Add New Experience' }</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="title"> Title: </label>
-            <input value={experienceData.title} name='title' onChange={handleChange} required/>
+                <label className="label" htmlFor="title"> Title: </label>
+            <input className='input is-rounded ' style={{background:'rgba(136, 126, 126, 0.04)'}} value={experienceData.title} name='title' onChange={handleChange} required/>
 
-            <label htmlFor="date">Date: </label>
-            <input type='date' value={experienceData.date} name='date' onChange={handleChange} required />
+            <label className="label" htmlFor="date">Date: </label>
+            <div className='control'>
+            <input className='input is-rounded ' style={{background:'rgba(136, 126, 126, 0.04)'}} type='date' value={experienceData.date} name='date' onChange={handleChange} required />
+            </div>
 
-            <label htmlFor="description">Description: </label>
-            <textarea value={experienceData.description} name='description' onChange={handleChange} required />
+            <label className="label" htmlFor="description">Description: </label>
+            <div className='control'>
+            <textarea class="textarea is-rounded " style={{background:'rgba(136, 126, 126, 0.04)'}} value={experienceData.description} name='description' onChange={handleChange} required />
+            </div>
             
-            <label htmlFor="place">Place: </label>
-            <input value={experienceData.place} name='place' onChange={handleChange} required />
+            <label className="label" htmlFor="place">Place: </label>
+            <div className='control'>
+            <input className='input is-rounded ' style={{background:'rgba(136, 126, 126, 0.04)'}} value={experienceData.place} name='place' onChange={handleChange} required />
+            </div>
             
-                <button  type='submit'>Save</button>
-                <button onClick={onClose}>cancel</button>
+            <div className="field is-grouped is-grouped-centered">
+                  <p className="control">
+                    <button className=" submit_form_btn" type='submit'>Save</button>
+                  </p>
+                  <p className="control">
+                    <button className='submit_form_btn' style={{background: 'linear-gradient(to right, #e4e3e3ff, #f5e6f8ff)', color:'#9C27B0'}}  onClick={onClose}>cancel</button>
+                  </p>
+                  </div>
             </form>
         </div>
     </div>
