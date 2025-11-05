@@ -30,6 +30,23 @@
 .learn_container { grid-area: learn_container; }
 .available_container { grid-area: available_container; }
 
+.teach_container{
+    border-right: 1px solid  #9b27b031;
+     
+}
+.available_container{
+    border-top: 1px solid  #9b27b031;
+
+}
+.skill_list_container{
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    flex-wrap: wrap;
+    align-items:center;
+    align-content:center;;
+}
 
 form.profile_form1 {
     display: flex;
@@ -54,6 +71,45 @@ form.profile_form1 {
     font-weight: bold;
     font-size: 40px;
 }
+
+.skill_button {
+   
+    background-color: #f5ebf7;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill_button::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.457), transparent);
+    top: -100%;
+    left: -100%;
+    transition: all 0.5s ease;
+}
+@keyframes pulse {
+    0% { transform: scale(1.05); }
+    50% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+.skill_button:hover::before {
+    top: 100%;
+    left: 100%;
+}
+
+
+
+
 ul {
   list-style-type: none;
   margin: 10;

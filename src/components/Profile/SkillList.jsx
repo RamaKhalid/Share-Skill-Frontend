@@ -102,22 +102,23 @@ function SkillList({profileInfo, setProfileInfo, user }) {
 
 
   return (
-    <div className='skill_container'>
-        <div className='teach_container'  >
-            {success?<AlertMessage severity_name="success" message={success}/> : '' }
+    <div >
+            {success&&!role?<AlertMessage severity_name="success" message={success}/> : '' }
         {role?<AlertMessage severity_name="success" message={`The Skill Is Added To Your ${role} Skill List Successfully`}/> : '' }
         {errors?< AlertMessage severity_name="error" message={errors}/> : '' }
-        <h3 className='skill_title'>Skill You Teach:</h3>
+    <div className='skill_container'>
+        <div className='teach_container'  >
+        <h3 className='skill_title'>Skill You Teach</h3>
             {
                 profileInfo.skills_user_teach
                     ?
-                    <ul>
+                    <div  className='skill_list_container'>
                         {
                             profileInfo.skills_user_teach.length
                                 ?
                                 profileInfo.skills_user_teach.map(skill => {
                                     return (
-                                        <button key={skill.id} onClick={() => { desocciateSkill(skill.id) }} >
+                                        <button className='skill_button'  onClick={() => { desocciateSkill(skill.id) }} >
                                             {skill.type} {skill.name} <span style={{margin: 5}}><FaTrash /></span>
                                                 
                                             
@@ -128,7 +129,7 @@ function SkillList({profileInfo, setProfileInfo, user }) {
                                 :
                                 <li>No Skill Yet</li>
                         }
-                    </ul>
+                    </div>
                     :
                     <p>Loading</p>
             }
@@ -136,17 +137,17 @@ function SkillList({profileInfo, setProfileInfo, user }) {
         
 
             <div className='learn_container'>
-                <h3 className='skill_title' >Skill You Want To Learn:</h3>
+                <h3 className='skill_title' >Skill You Want To Learn</h3>
                             {
                                 profileInfo.skills_user_learn
                                     ?
-                                    <ul>
+                                    <div className='skill_list_container'>
                                         {
                                             profileInfo.skills_user_learn.length
                                                 ?
                                                 profileInfo.skills_user_learn.map(skill => {
                                                     return (
-                                                        <button onClick={() => { desocciateSkill(skill.id) }} key={skill.id} >
+                                                        <button button className='skill_button' onClick={() => { desocciateSkill(skill.id) }} key={skill.id} >
                                                             {skill.type} {skill.name} <span style={{margin: 5}}><FaTrash /></span>
                                                 
                                                             {/* <>Delete skill</> */}
@@ -156,15 +157,15 @@ function SkillList({profileInfo, setProfileInfo, user }) {
                                                 :
                                                 <li>No Skill Yet</li>
                                         }
-                                    </ul>
+                                    </div>
                                     :
                                     <p>Loading</p>
                             }
 
             </div>
+        <br class="horizontal_line"></br>
 
 
-            
 
         <div className='available_container'>
             <h3 className='skill_title'>Available Skills:</h3>
@@ -202,6 +203,7 @@ function SkillList({profileInfo, setProfileInfo, user }) {
             {showForm && <SkillForm userId= {user.user_id}  onClose= {()=>setShowForm(false)}/>}
             <button onClick={handleClick}>Add other Skill</button>
 
+    </div>
     </div>
   )
 }
