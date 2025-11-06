@@ -1,6 +1,6 @@
 
 
-readme_content = """# **SwapShare Frontend**
+# **SwapShare Frontend**
 
 ## **Project Description**
 **SwapShare** is a collaborative skill-sharing platform that connects people who want to **teach** and **learn** from each other.  
@@ -10,7 +10,7 @@ Users can create profiles, showcase their skills, and find others with complemen
 
 ---
 
-## **What Is In My Repository **
+## **What Is In My Repository**
 This repository contains the **frontend** implementation of SwapShare, built using **React** and modern web development practices.  
 It handles user authentication, full CFRD and communication with the backend API to display and manage skills, certificates, experiences,meetings, and user profiles.
 
