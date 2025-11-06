@@ -11,8 +11,6 @@ function FormExperiences({user,experiencesList, setExperiencesList, experience,s
         owner: user.user_id
       })
     const modelRef = useRef()
-    const [lastIndex, setLastIndex] = useState (experiencesList.length)
-    // console.log(lastIndex);
     
 
     async function handleSubmit(e){

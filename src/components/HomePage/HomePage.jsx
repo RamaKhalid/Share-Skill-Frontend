@@ -1,11 +1,12 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState , useRef} from 'react'
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 
 
 import './homeStyle.scss';
 import { SearchBar } from '../SearchBar/SearchBar';
 import Match from '../Match/Match';
+import UserDetail from './UserDetail';
 
 
 
@@ -13,10 +14,9 @@ function HomePage({user}) {
     
     const [users, setUSers] = useState([])
     const [profileList, setProfileList] = useState([])
-    const [show, setSow]= useState(true)
     const[skillID, setSkillId] = useState('')
-
-
+    const [showForm, setShowForm] =useState(false)
+    const [userID, setUserID]=useState(null)
     
     async function getAllUSer() {
         const response = await authRequest({method:'get', url: 'http://127.0.0.1:8000/ss/home/'})
@@ -46,15 +46,20 @@ function HomePage({user}) {
         if (userSkill){
         //    console.log(userSkill);
             setUSers(userSkill)
-            setSow(false)  
+             
         }
+    }
+
+    const handleProfileClick=(e)=>{
+        setUserID(e.target.id);
+        setShowForm(true)
     }
 
   return (
     <div>
         <SearchBar setSkillId={setSkillId} onTrigger={getUserBySkill} user={user} />
-        <div style={{width: 842, height: 547, position: 'relative' ,marginLeft:300}}>
-  {/* <div style={{width: 100 ,height: 547, left: 0, top: 0, position: 'absolute', background: 'white'}} /> */}
+        {/* source : https://www.figma.com/design/rQJgid3Sl19qSmpLZqxw2i/Free-Figma-Website-Landing-Pages---Startup-App--Community-?node-id=970-923&t=Xdwgq5peOEk9Cp82-0 */}
+    <div style={{width: 842, height: 547, position: 'relative' ,marginLeft:300}}>
   <div style={{width: 166.02, height: 174.64, left: 237.37, top: 186.18, position: 'absolute', background: '#FF0D6A', boxShadow: '150px 150px 150px ', borderRadius: 9999, filter: 'blur(75px)'}} />
   <div style={{width: 166.02, height: 174.64, left: 343.02, top: 186.18, position: 'absolute', background: '#8886F1', boxShadow: '150px 150px 150px ', borderRadius: 9999, filter: 'blur(75px)'}} />
   <div style={{width: 166.02, height: 174.64, left: 448.67, top: 186.18, position: 'absolute', background: '#EA00FF', boxShadow: '150px 150px 150px ', borderRadius: 9999, filter: 'blur(75px)'}} />
@@ -67,13 +72,14 @@ function HomePage({user}) {
 
             <h1 style={{ marginTop: 200,color: '#58005E',justifyContent:'center', display:'flex', fontSize: 70, fontFamily: 'Inria Serif', fontWeight: '400'}}>Users:</h1>
         <div className="hopmepage_container">
+            {showForm && < UserDetail userID={userID} users={users} profileList={profileList} onClose= {()=>setShowForm(false)}  />}
         {
             // (searchData=== undefined || searchData === null || searchData === '')
             users.length  
-                ?
-                users.map((user) => {
+            ?
+            users.map((user) => {
                     return (
-                        <div className="card" key={user.id}>
+                        <div  className="card" key={user.id} id={user.id} onClick={(e)=>{handleProfileClick(e)}}>
                         <div className="content">
                             <div className="img"><img src="https://unsplash.it/200/200"/></div>
                             <div className="cardContent">

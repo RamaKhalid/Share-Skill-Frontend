@@ -36,6 +36,7 @@
 }
 .available_container{
     border-top: 1px solid  #9b27b031;
+    
 
 }
 .skill_list_container{
@@ -67,9 +68,13 @@ form.profile_form1 {
 }
 .skill_title {
     color: #8C55AA;
-    font-family: Inria Serif ;
+    font-family: 'Ubuntu', sans-serif;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 30px;
+      font-family: Inria Serif;
+      align-self:center;
+      margin-left: 90px;
+      margin-top: 50px;
 }
 
 .skill_button {
@@ -122,6 +127,7 @@ ul {
   float: left;
   margin: 15px;
   padding: 60;
+  
 }
 
 

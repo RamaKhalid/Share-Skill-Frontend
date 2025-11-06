@@ -49,22 +49,7 @@ function Profile({user}) {
         return <h3>{errors}</h3>
     }
 
-    const age =()=>{
-        let today = new Date();
-        let birthDay = new Date(profileInfo.birth_date)
-        let age = today.getFullYear() -birthDay.getFullYear() 
-        let month = today.getMonth() - birthDay.getMonth();
-        if (month < 0 || (month === 0 && today.getDate() < birthDay.getDate())) 
-        {
-            age--;
-        }
-        if (age){
-            console.log(age);
-            return (age)
-
-        }
-        
-    }
+    
 
     async function handleSubmit(e){
         e.preventDefault()
