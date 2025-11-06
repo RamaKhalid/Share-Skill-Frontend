@@ -1,16 +1,33 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+readme_content = """# **SwapShare Frontend**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## **Project Description**
+**SwapShare** is a collaborative skill-sharing platform that connects people who want to **teach** and **learn** from each other.  
+Users can create profiles, showcase their skills, and find others with complementary abilities. The platform encourages community-based knowledge exchange, empowering individuals to grow personally and professionally through shared learning experiences.  
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## **What Is In My Repository **
+This repository contains the **frontend** implementation of SwapShare, built using **React** and modern web development practices.  
+It handles user authentication, full CFRD and communication with the backend API to display and manage skills, certificates, experiences,meetings, and user profiles.
+
+---
+
+## **Tech Stack**
+- **Frontend Framework:** React.js  
+- **Styling:** bulma, CSS, SASS  
+- **Routing:** React Router  
+- **API Communication:** authRequest  
+- **Icons:** React Icons / Lucide Icons  
+- **Containerization (optional):** Docker  
+
+---
+
+## **Backend Repository**
+🔗 [SwapShare Backend Repository](https://github.com/RamaKhalid/Share-Skill-Backend)  
+
+---
+
