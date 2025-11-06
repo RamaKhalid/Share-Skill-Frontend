@@ -15,7 +15,6 @@ function DeleteExperiences({setSuccess, experience, experiencesList, setExperien
             const response = await authRequest(
                             {method:'delete',
                              url: `http://127.0.0.1:8000/ss/profile/experience/${experience[0].id}/`})
-            // window.location.reload();
             const exp = experiencesList.filter((exp)=> exp.id != experience[0].id)
             setExperiencesList(exp)
             setSuccess(`Your Experience ${experience[0].title} Is  Deteted Successfully!`)

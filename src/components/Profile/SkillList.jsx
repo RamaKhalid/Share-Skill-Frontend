@@ -7,7 +7,6 @@ import AlertMessage from '../Alert/AlertMessage';
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 import { FaPlus, FaTrash } from 'react-icons/fa';
 
-// import Alert from '@mui/material/Alert';
 
 
 
@@ -148,7 +147,6 @@ function SkillList({profileInfo, setProfileInfo, user }) {
                                                         <button   className='skill_list submit_form_btn' style={{background: 'linear-gradient(to right, #e4e3e3ff, #f5e6f8ff)', color:'#9C27B0'}}  onClick={() => { desocciateSkill(skill.id) }} key={skill.id} >
                                                             {skill.type} {skill.name} <span style={{margin: 5}}><FaTrash /></span>
                                                 
-                                                            {/* <>Delete skill</> */}
                                                         </button>
                                                     )
                                                 })
@@ -184,7 +182,6 @@ function SkillList({profileInfo, setProfileInfo, user }) {
                                                 return (
                                                     <button className='cell skill_list submit_form_btn' style={{background: 'linear-gradient(to right, #e4e3e3ff, #f5e6f8ff)', color:'#9C27B0'}} key={skill.id} id={skill.id}  name={skill.name} onClick={addTeachingSkill}>
                                                         {skill.type} {skill.name} <span style={{margin: 5}}><FaPlus /></span>
-                                                        {/* <button id={skill.id}  name={skill.name} onClick={addTeachingSkill}>Add Skill</button> */}
                                                     </button>
                                                 )
                                             })

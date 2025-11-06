@@ -3,7 +3,7 @@ import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 
 
 
-function DeleteCertificates({user, certificate,setCertificatesList, certificatesList, setSuccess, onClose}) {
+function DeleteCertificates({ certificate,setCertificatesList, certificatesList, setSuccess, onClose}) {
     console.log(certificate);
     
     const modelRef = useRef()
@@ -21,8 +21,6 @@ function DeleteCertificates({user, certificate,setCertificatesList, certificates
                             {method:'delete',
                              url: `http://127.0.0.1:8000/ss/profile/certificate/${certificate[0].id}/`})
             console.log(response.data)
-            // setCertificate(response.data)
-            // window.location.reload();
             const certifi = certificatesList.filter((certifi)=> certifi.id != certificate[0].id)
             setCertificatesList(certifi)
             setSuccess(`Your Certificate ${certificate[0].name} Is Deteted Successfully!`)

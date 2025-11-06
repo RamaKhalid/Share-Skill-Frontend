@@ -23,8 +23,6 @@ function App() {
 
   return (
 <Router>
-      {/* Nav bar takes the user and the set user to show either login or logout buttons */}
-      {/* <NavBar user={user} setUser={setUser} setSkillId= {setSkillId} setSearchData={ setSearchData}/> */}
       <NavBar user={user} setUser={setUser}/>
       <Routes>
         <Route path='/login' element={ <Login user={user} setUser={setUser}/>}/>

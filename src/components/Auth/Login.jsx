@@ -3,7 +3,6 @@ import React, { useState } from "react"
 import axios from "axios"
 import { saveTokens, getUserFromToken } from "../../lib/auth"
 import { useNavigate } from "react-router"
-import Alert from '@mui/material/Alert';
 import AlertMessage from "../Alert/AlertMessage";
 import "./LoginSingup.css"
 

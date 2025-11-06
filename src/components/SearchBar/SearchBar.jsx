@@ -11,7 +11,6 @@ export const SearchBar = ({setSkillId, onTrigger, user}) => {
   const [input, setInput] = useState("");
   const [results, setResults] = useState([]);
   const selectRef =useRef()
-//   const[skillID, setSkillId] = useState('')
 
   async function getSkills(event) {
         const response = await authRequest(
@@ -44,13 +43,11 @@ export const SearchBar = ({setSkillId, onTrigger, user}) => {
 
   const handleClick = (e , id)=>{
     console.log(id);
-    //Check why it tack python when i click programming
     setSkillId(id)
 
     console.log('ref',e.currentTarget.textContent);
     
     setInput(e.currentTarget.textContent)
-    // console.log(`this is a ref: ${selectRef.current.textContent}`);
     
     onTrigger(id)
     

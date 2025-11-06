@@ -36,7 +36,7 @@ function HomePage({user}) {
     }
 
     function getUserBySkill(sID){
-        // console.log(profileList);
+
         
        const userProfile = profileList.filter((profile)=> {
         return profile.skills.some((skill)=> skill === sID) })
@@ -44,7 +44,6 @@ function HomePage({user}) {
         
         const userSkill = users.filter((user)=> userProfile.some((profile) => profile.user === user.id))
         if (userSkill){
-        //    console.log(userSkill);
             setUSers(userSkill)
              
         }
@@ -74,7 +73,6 @@ function HomePage({user}) {
         <div className="hopmepage_container">
             {showForm && < UserDetail userID={userID} users={users} profileList={profileList} onClose= {()=>setShowForm(false)}  />}
         {
-            // (searchData=== undefined || searchData === null || searchData === '')
             users.length  
             ?
             users.map((user) => {
@@ -85,7 +83,6 @@ function HomePage({user}) {
                             <div className="cardContent">
                             <h3>{user.first_name} - {user.last_name}<br/>
                             <span>level: {getLevels(user.id)}  </span></h3>
-                            {/* <span>level: {profileList.find(profile=> profile.user === user.id).level}</span></h3> */}
                             </div>
                         </div>
                         <ul className="sci">

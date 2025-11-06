@@ -1,5 +1,4 @@
 import {useEffect, useState, useRef } from 'react'
-import axios from 'axios'
 import MatchForm from './MatchForm'
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 import "./match.css"

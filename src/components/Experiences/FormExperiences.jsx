@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 
 
-function FormExperiences({user,experiencesList, setExperiencesList, experience,setSuccess, setShowModel, onClose }) {
+function FormExperiences({user, setExperiencesList, experience,setSuccess, onClose }) {
   const [experienceData, setExperienceData]= useState({
         title : experience.length? experience[0].title: '',
         date: experience.length? experience[0].date :'',
@@ -24,7 +24,7 @@ function FormExperiences({user,experiencesList, setExperiencesList, experience,s
                              url:`http://127.0.0.1:8000/ss/profile/experience/${experience[0].id}/`})
             if (response){
             setSuccess('Your Experience Is Updeated Successfully! ')
-            // const lastIndex = experiencesList.length()
+         
             setExperiencesList( response.data)
             onClose()
           }
@@ -35,7 +35,7 @@ function FormExperiences({user,experiencesList, setExperiencesList, experience,s
                              url:`http://127.0.0.1:8000/ss/profile/${user.user_id}/experience/`})
           if (response){
             setSuccess('Your Experience is Added Successfully! ')
-            // const lastIndex = experiencesList.length()
+         
             setExperiencesList( response.data)
           }
            }

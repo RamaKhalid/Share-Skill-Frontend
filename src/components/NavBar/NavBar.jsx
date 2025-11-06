@@ -9,6 +9,8 @@ function NavBar({ user, setUser}) {
   
   return (
     <nav className="navbar level" role="navigation" aria-label="main navigation">
+  
+      <img src="src\assets\images\logo.png" alt="Swapskill logo" width={50} />
 
       <div id="navbarBasicExample " className="navbar-menu is-spaced">
       {

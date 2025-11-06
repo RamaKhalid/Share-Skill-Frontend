@@ -36,9 +36,7 @@ function MatchForm({onClose, user, profileInfo}) {
      }
 
     async function getMatchAny(){
-        // console.log(skill);
-        
-        // e.preventDefault()
+      
         try {       
             const response = await authRequest(
                             {method:'get',

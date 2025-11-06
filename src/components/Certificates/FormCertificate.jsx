@@ -14,11 +14,6 @@ function FormCertificate({user,setSuccess, certificate,setCertificatesList, cert
       })
       const [errors, setErrors] = useState(null)
       
-    // const [certificateData, setCertificates]= useState({
-    //     name :'',
-    //     type: '',
-    //     owner: user.user_id
-    //   })
     const modelRef = useRef()
 
       async function handleSubmit(e){

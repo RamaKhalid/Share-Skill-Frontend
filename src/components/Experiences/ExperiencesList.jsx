@@ -18,7 +18,6 @@ function ExperiencesList({user}) {
                             {method:'get',
                              url: `http://127.0.0.1:8000/ss/profile/${user.user_id}/experience/`})
         console.log(response.data)
-        // console.log(response.error);
         
         setExperiencesList(response.data)
     }
@@ -62,8 +61,6 @@ function ExperiencesList({user}) {
                                 <img src="src\assets\images\rating.png" className="card__image" alt="" />
                                 <div className="card__overlay">
                                     <div className="card__header">
-                                    {/* <svg className="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                      */}
-                                    {/* <img className="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" /> */}
                                     <div className="card__header-text">
                                         <h3 className="card__title" >{experiences.title}</h3>            
                                         <span className="card__status">{experiences.date} - {experiences.place}</span>
@@ -87,10 +84,7 @@ function ExperiencesList({user}) {
                 :
                 <li>
                     <div className="card">
-                        {/* <div className="card__overlay"> */}
-                            <h3 className="card__title">No Experiences Yet</h3>            
-                        
-                        {/* </div> */}
+                        <h3 className="card__title">No Experiences Yet</h3>            
                     </div>      
                 </li>
             }

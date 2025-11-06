@@ -3,7 +3,7 @@ import { authRequest, getUserFromToken, clearTokens } from "../../lib/auth"
 
 
 
-function DeleteMeeting({user, meetingId, onClose }) {
+function DeleteMeeting({ meetingId, onClose }) {
     const modelRef = useRef()
 
     const closeModel= (e)=> {

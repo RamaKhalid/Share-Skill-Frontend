@@ -15,7 +15,6 @@ function MatchedPage() {
   function getUsersSkil(userID){    
        const userSkill = data.users_can_teach_and_learn_by_you.find(profile=> profile.user === userID)
         if (userSkill)
-            // console.log(userSkill.skill);
             return getSkil( userSkill.skill)
     }
 
@@ -23,7 +22,6 @@ function MatchedPage() {
        const userProfile = data.profile_user.find(profile=> profile.user === userID)
         if (userProfile)
         {
-            // console.log(userProfile.id);
             return getUsersSkil(userProfile.id)
         }  
     }
@@ -32,16 +30,12 @@ function MatchedPage() {
         const userProfile = data.profile_user.find(profile=> profile.user === userID)
         if (userProfile)
             {
-                // console.log(userProfile.id);
                 const userSkillList = data.users_can_teach_you.filter(profile=> profile.user === userProfile.id)
                 if (userSkillList){
-                    // console.log(userSkillList);
                     return userSkillList.map(user=> {
                         const skill = data.teach_skill_data.find(skill=> skill.id === user.skill)
                         if (skill)
-                        // {console.log(skill.name);
                         return <p key={skill.id}>{skill.name}</p>
-                        // }
                         
                     })
                 } 

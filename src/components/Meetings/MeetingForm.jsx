@@ -36,7 +36,6 @@ function MeetingForm({user,meetings, meetingId, setMeestingList, setSuccess ,onC
                              url:`http://127.0.0.1:8000/ss/meeting/${meetingId}/`})
             if (response){
               setSuccess('Your Meeting is Updated Successfully! ')
-              // setExperiencesList( response.data)
             }
           }
           else{
@@ -73,7 +72,6 @@ function MeetingForm({user,meetings, meetingId, setMeestingList, setSuccess ,onC
             
                 setErrors('Starting Time Must Be Befor The End Time')
           } else {
-              // Hours are equal, compare minutes
                if (start[1] > end[1]) {
                 console.log('start[1] < end[1]');
                 
@@ -81,15 +79,7 @@ function MeetingForm({user,meetings, meetingId, setMeestingList, setSuccess ,onC
           }}
         }
           console.log(e);
-          // if(e.target.name === 'end_time'){
-          //   console.log(typeof meeting.starting_time);
-          //   if (meeting.starting_time) {
-          //     if (meeting.end_time< meeting.starting_time) {
-          //       setErrors('Starting Time Must Be Befor The End Time')
-          //     }
-          //   }
-            
-          // }
+   
         setMeesting({...meeting, [e.target.name]: e.target.value})
     }
 

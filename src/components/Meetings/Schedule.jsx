@@ -31,7 +31,7 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
   
   
   const [success, setSuccess] = useState(null)
-  const [checked, setChecked] = useState(false);
+  
   
   
 
@@ -42,7 +42,6 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
         const meeting = meetingsList.filter((meeting)=> meeting.id == id)
         if(meeting.length){
           setMeetings(meeting)
-          // setMeetings([...meeting, {'participant':participantData.length?participantData[0].username:''}])
 
         }
         console.log(meeting);
@@ -55,7 +54,6 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
          if (e.target.name === 'addNew' ){
           console.log(meetings);
           
-          // setMeetings([...meetings, {'participant':participantData.length?participantData[0].username:''}])
             setShowForm(true)
 
         }
@@ -74,7 +72,6 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
     console.log(event.target.id);
    const Meeting = meetingsList.filter((met)=> met.id == event.target.id)
    Meeting[0].is_complete=true
-  //  setOneMeeting(Meeting)
    console.log(Meeting);
    
             try {        
@@ -84,7 +81,6 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
                                  url:`http://127.0.0.1:8000/ss/meeting/${event.target.id}/`})
                 if (response){
                   setSuccess('Your Meeting is Updated Successfully! ')
-                  // setExperiencesList( response.data)
                 }
                 console.log(response.data)
             setMeetings(response.data)
@@ -133,7 +129,6 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
                 <td><span>{meeting.starting_time}</span></td>
                 <td><span>{meeting.end_time}</span></td>
                 <td><span>{meeting.participant}</span></td>
-                {/* <td><span>{meeting.is_complete? 'Done': "Not Done Yet!"} </span></td> */}
                 <td><span><Checkbox
                             checked={meeting.is_complete?true: false }
                             onChange={handleChecked}
@@ -189,7 +184,6 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
                 <td><span style={{ color: '#6b6868' }}>{meeting.starting_time}</span></td>
                 <td><span style={{ color: '#6b6868' }}>{meeting.end_time}</span></td>
                 <td><span style={{ color: '#6b6868' }}>{meeting.participant}</span></td>
-                {/* <td><span>{meeting.is_complete? 'Done': "Not Done Yet!"} </span></td> */}
                 <td><span  ><Checkbox
   checked
   disabled
@@ -205,7 +199,6 @@ function Schedule({user, meetingsList,setMeestingList,participantData, userData,
 /></span></td>                
                 <td>
                   <div className="meeting_actions">
-                    {/* <button type='button'className="meeting_edit-btn" name='edit' onClick={(e)=>handleClick(e,meeting.id)} ><FaEdit /></button> */}
                     <button type='button'name='delete' value={meeting.id} onClick={(e)=>{handleDelete(e, meeting.id)}} className="meeting_delete-btn"><FaTrash /></button>
                   </div>
                 </td>

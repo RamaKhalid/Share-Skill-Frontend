@@ -118,9 +118,7 @@ form.profile_form1 {
 ul {
   list-style-type: none;
   margin: 10;
-  /* padding: 10; */
   overflow: hidden;
-  /* background-color: #dbe3f; */
 }
 
 .skill_list {
@@ -146,7 +144,6 @@ ul {
     box-sizing: border-box;
     border: 2px solid rgba(0, 0, 0, 0.02);
     margin-bottom: 50px;
-    /* margin-left: 46px; */
     text-align: center;
     margin-bottom: 27px;
     font-family: Inria Serif ;
@@ -169,7 +166,6 @@ ul {
     padding-bottom: 10px;
     padding-top: 10px;
     font-family: Inria Serif ;
-    /* margin-left: 35%; */
     font-size: 13px;
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
 }
